@@ -2,6 +2,13 @@
 #SELECT ?item ?title ?inception ?dissolved ?elevation ?article ?url ?image ?naturbase ?itemLabel WHERE {
 SELECT * WHERE {
   ?item p:P31/ps:P31/wdt:P279* wd:Q473972.
+	{
+		SELECT (MAX(?naturbase) AS ?naturbase) ?item WHERE {
+            ?item wdt:P1732 ?naturbase.
+       }
+		GROUP BY ?item
+		ORDER BY DESC(?naturbase)
+	}
   OPTIONAL { ?item wdt:P2044 ?elevation. }
   OPTIONAL { ?item wdt:P856 ?url. }
   OPTIONAL { ?item wdt:P18 ?image. }
@@ -19,5 +26,3 @@ SELECT * WHERE {
   }
   ?item wdt:P17 wd:Q20.
 }
-
-
