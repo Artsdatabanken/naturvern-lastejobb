@@ -2,7 +2,7 @@ Lastejobb for data om Norske naturvernområder.
 
 ## Datasett
 
-Datasettet som er resultatet av lastejobben havner i repo [kommune-data](https://github.com/Artsdatabanken/kommune-data) og leses derfra av prosjekter som bruker datasettet.
+Datasettet som er resultatet av lastejobben havner i repo [naturvern-data](https://github.com/Artsdatabanken/naturvern-data) og leses derfra av prosjekter som bruker datasettet.
 
 ## Dataene brukes blant annet av
 
