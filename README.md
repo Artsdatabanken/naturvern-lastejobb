@@ -21,7 +21,7 @@ Datasettet som er resultatet av lastejobben havner i repo [kommune-data](https:/
 
 * [Om logo](./logo/README.md)
 
-<img style="width:120px" src="./build/logo.svg">
+<img style="width:120px" src="./logo/logo.svg">
 
 ## Visuelt uttrykk
 
