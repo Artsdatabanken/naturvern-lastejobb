@@ -1,12 +1,12 @@
 const { io, log } = require("lastejobb");
 
-const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
+const lesSparqlOutput = fil => io.lesDatafil(fil).items.results.bindings;
 
 const r = lesElementer(__filename, "naturbase");
 const dok = {
-  items: mapTilNummerSomNøkkel(r),
+  items: r,
   meta: {
-    url: `https://github.com/Artsdatabanken/kommune-data/blob/master/${nivå}.json`
+    url: `https://github.com/Artsdatabanken/naturvern-data/blob/master/naturvernområde.json`
   }
 };
 io.skrivBuildfil(__filename, dok);
