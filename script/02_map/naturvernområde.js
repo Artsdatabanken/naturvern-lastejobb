@@ -3,19 +3,13 @@ const { io, log } = require("lastejobb");
 const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
 
 const r = lesElementer(__filename, "naturbase");
-io.skrivBuildfil(__filename, sortByKey(r));
-
-function sortByKey(o) {
-  return Object.keys(o)
-    .sort()
-    .reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: o[key]
-      }),
-      {}
-    );
-}
+const dok = {
+  items: mapTilNummerSomNøkkel(r),
+  meta: {
+    url: `https://github.com/Artsdatabanken/kommune-data/blob/master/${nivå}.json`
+  }
+};
+io.skrivBuildfil(__filename, dok);
 
 function lesElementer(filnavn, nøkkelfelt) {
   const elementer = lesSparqlOutput(filnavn);
@@ -38,15 +32,9 @@ function map(e) {
   return r;
 }
 
-function add(o, key, field) {
-  if (!field) return;
-  let value = field.value;
-  if (field.datatype === "http://www.w3.org/2001/XMLSchema#dateTime")
-    value = new Date(value);
-  if (value) o[key] = value;
-}
-
 function value(e) {
   if (!e) return null;
+  if (e.datatype === "http://www.w3.org/2001/XMLSchema#dateTime")
+    return new Date(e.value);
   return e.value;
 }
