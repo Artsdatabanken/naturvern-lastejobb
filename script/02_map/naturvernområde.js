@@ -3,6 +3,7 @@ const { io, log } = require("lastejobb");
 const lesSparqlOutput = fil => io.lesDatafil(fil).items.results.bindings;
 
 const r = lesElementer(__filename, "naturbase");
+r.sort((a, b) => (a.naturbase > b.naturbase ? 1 : -1));
 const dok = {
   items: r,
   meta: {
@@ -11,15 +12,14 @@ const dok = {
 };
 io.skrivBuildfil(__filename, dok);
 
-function lesElementer(filnavn, nøkkelfelt) {
+function lesElementer(filnavn) {
   const elementer = lesSparqlOutput(filnavn);
-  const r = {};
+  const r = [];
   elementer.forEach(e => {
     const k = map(e);
     if (k.dissolved < new Date()) return;
     if (k.inception > new Date()) return;
-    const nøkkel = k[nøkkelfelt];
-    r[nøkkel] = k;
+    r.push(k);
   });
   return r;
 }
