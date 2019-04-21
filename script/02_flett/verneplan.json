@@ -1,0 +1,20 @@
+{
+  "5": { "kode": "SF", "navn": { "nb": "Verneplan for sjøfugl" } },
+  "8": { "kode": "AV", "navn": { "nb": "Annet vern eller verneplan" } },
+  "6": { "kode": "SV", "navn": { "nb": "Skogvern" } },
+  "9": { "kode": "IV", "navn": { "nb": "Ikke vurdert" } },
+  "2": { "kode": "VV", "navn": { "nb": "Verneplan for våtmark" } },
+  "7": { "kode": "MV", "navn": { "nb": "Marin verneplan" } },
+  "1": {
+    "kode": "NP",
+    "navn": {
+      "nb": "Verneplan for nasjonalparker og andre større verneområder"
+    }
+  },
+  "4": {
+    "kode": "RL",
+    "navn": { "nb": "Verneplan for edelløvskog/rike løvskoger" }
+  },
+  "3": { "kode": "VM", "navn": { "nb": "Verneplan for myr" } },
+  "a8": { "kode": "KG", "navn": { "nb": "Kvartærgeologi" } }
+}

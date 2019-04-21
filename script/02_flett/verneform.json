@@ -1,0 +1,30 @@
+{
+  "NR": { "navn": { "nb": "Naturreservat" } },
+  "NP": { "navn": { "nb": "Nasjonalpark" } },
+  "LVO": { "navn": { "nb": "Landskapsvernområde" } },
+  "D": { "navn": { "nb": "Dyrelivsfredning" } },
+  "PD": { "navn": { "nb": "Plante- og dyrelivsfredning" } },
+  "NM": { "navn": { "nb": "Naturminne" } },
+  "LVOP": {
+    "navn": { "nb": "Landskapsvernområde med plantelivsfredning" }
+  },
+  "DO": { "navn": { "nb": "Dyrefredningsområde" } },
+  "LVOD": {
+    "navn": { "nb": "Landskapsvernområde med dyrelivsfredning" }
+  },
+  "PO": { "navn": { "nb": "Plantefredningsområde" } },
+  "LVOPD": {
+    "navn": { "nb": "Landskapsvernområde med plante- og dyrelivsfredning" }
+  },
+  "PDO": { "navn": { "nb": "Plante- og dyrefredningsområde" } },
+  "MIV": { "navn": { "nb": "Midlertidig verna område/objekt" } },
+  "P": { "navn": { "nb": "Plantelivsfredning" } },
+  "BVV": { "navn": { "nb": "Biotopvern etter viltloven" } },
+  "NRS": { "navn": { "nb": "Naturreservat (Svalbardmiljøloven)" } },
+  "NPS": { "navn": { "nb": "Nasjonalpark (Svalbardmiljøloven)" } },
+  "GVS": { "navn": { "nb": "Geotopvern (Svalbardmiljøloven)" } },
+  "MAV": {
+    "navn": { "nb": "Marint verneområde (naturmangfoldloven)" }
+  },
+  "BV": { "navn": { "nb": "Biotopvern" } }
+}
