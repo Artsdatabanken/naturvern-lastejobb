@@ -18,5 +18,6 @@ wget https://designmanual.norgesnasjonalparker.no/uploads/zips/NN_Logosymbol_Sos
 unzip NN_Logosymbol_SosialeMedier.png.zip
 convert NN_Logosymbol_SosialeMedier.png -trim logo.bmp
 potrace -s logo.bmp
+convert -background transparent -resize 40x40 logo.svg avatar_40.png
 ```
 
