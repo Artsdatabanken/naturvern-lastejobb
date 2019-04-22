@@ -81,6 +81,7 @@ function flett(mdir, wiki) {
     log.warn(e.faktaark + " mangler verneplan (skal antagelig være kvartær..");
   }
   delete e.vern_verneplan;
+  moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.offisielt");
   moveKey(e, "url", "lenke.offisiell");
   moveKey(e, "faktaark", "lenke.faktaark");
@@ -98,6 +99,7 @@ function flett(mdir, wiki) {
   delete e.itemLabel;
   delete e.naturbase;
 
+  e.kode = "VV-" + parseInt(e.kodeautor.substring(2));
   if (e.coords) e.coords = coordWktToArray(e.coords);
   if (e.inception) {
     e.revisjon.dato.førstvernet = e.inception;
