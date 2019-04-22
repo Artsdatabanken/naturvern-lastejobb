@@ -1,4 +1,4 @@
-const {git} = require('lastejobb')
+const { git } = require("lastejobb");
 
-git.git("submodule", "init")
-git.git("submodule", "update")
+git.git("submodule", "init");
+git.git("submodule", "update --remote");
