@@ -22,8 +22,7 @@ const verneplan = arrayToObject(
 );
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde", ".geojson");
-const wiki = io.lesDatafil("wikidata_naturvernområde").items;
-
+const wiki = lesWikidata("wikidata_naturvernområde");
 const include = {
   Naturvernområde: true
 };
@@ -80,22 +79,16 @@ function flett(mdir, wiki) {
   moveKey(e, "moblandprioritet", "vurdering.moblandprioritet");
   moveKey(e, "vernrevisjon", "revisjon.status");
   moveKey(e, "vernplanbehov", "revisjon.planbehov");
-  moveKey(e, "områdeplanstatus_plandato", "revisjon.plandato");
-  if (!wiki) return e;
-  if (e.offisieltnavn !== e.itemLabel && e.navn + " " + e.vern)
-    log.warn(`${e.ident_lokalid}: ${e.offisieltnavn} <> ${e.itemLabel}`);
+  moveKey(e, "områdeplanstatus_plandato", "revisjon.dato.plandato");
   delete e.itemLabel;
   delete e.naturbase;
 
   if (e.inception) {
-    const was = e.inception;
-    if (!new Date((e.inception + "0000").substring(0, 8)))
-      throw new Error(e.inception, e.vernedato);
-    e.inception = new Date((e.inception + "0000").substring(0, 8));
+    e.revisjon.dato.førstvernet = e.inception;
+    delete e.inception;
   }
-  moveKey(e, "inception", "revisjon.dato.førstvernet");
-  e.vernedato = parseInvalidDate(e.vernedato);
-  moveKey(e, "vernedato", "revisjon.dato.vernet");
+  if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
+  delete e.vernedato;
   return e;
 }
 
@@ -112,4 +105,31 @@ function moveKey(o, src, destPath) {
   const dest = destArr.pop();
   node[dest] = o[src];
   delete o[src];
+}
+
+function lesWikidata(filnavn) {
+  const elementer = lesSparqlOutput(filnavn);
+  const r = {};
+  elementer.forEach(e => {
+    const k = map(e);
+    if (k.dissolved < new Date()) return;
+    if (k.inception > new Date()) return;
+    r[k.naturbase] = k;
+  });
+  return r;
+}
+
+function map(e) {
+  const r = {};
+  Object.entries(e).forEach(([key, v]) => {
+    r[key] = value(v);
+  });
+  return r;
+}
+
+function value(e) {
+  if (!e) return null;
+  if (e.datatype === "http://www.w3.org/2001/XMLSchema#dateTime")
+    return new Date(e.value);
+  return e.value;
 }
