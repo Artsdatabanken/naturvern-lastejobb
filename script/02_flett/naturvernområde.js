@@ -12,9 +12,12 @@ const parseInvalidDate = s =>
     s.substring(0, 4) + "-" + s.substring(4, 6) + "-" + s.substring(6, 8)
   );
 
-const verneform = arrayToObject(require("../../build/verneform").items, "kode");
+const verneform = arrayToObject(
+  require("../../naturvern-data/verneform").items,
+  "kode"
+);
 const verneplan = arrayToObject(
-  require("../../build/verneplan").items,
+  require("../../naturvern-data/verneplan").items,
   "tallkode"
 );
 
