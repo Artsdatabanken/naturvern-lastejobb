@@ -1,17 +1,18 @@
 {
-  "name": "naturvern-lastejobb",
-  "version": "1.0.0",
+  "author": "Bjorn Reppen <bjreppen@gmail.com> (https://github.com/bjornreppen)",
+  "dependencies": {
+    "lastejobb": "^1.5.3"
+  },
   "description": "",
+  "keywords": [],
+  "license": "ISC",
   "main": "index.js",
+  "name": "naturvern-lastejobb",
   "scripts": {
     "build": "node index.js",
+    "publish": "echo dummy publish",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Bjorn Reppen <bjreppen@gmail.com> (https://github.com/bjornreppen)",
-  "license": "ISC",
-  "dependencies": {
-    "lastejobb": "^1.5.3"
-  }
+  "version": "1.0.0"
 }
