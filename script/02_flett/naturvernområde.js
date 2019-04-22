@@ -1,12 +1,22 @@
 const { io, log } = require("lastejobb");
-const verneform = require("./verneform");
-const verneplan = require("./verneplan");
+
+const arrayToObject = (arr, key) =>
+  arr.reduce((acc, e) => {
+    acc[e[key]] = e;
+    return acc;
+  }, {});
 
 const lesSparqlOutput = fil => io.lesDatafil(fil).items.results.bindings;
 const parseInvalidDate = s =>
   new Date(
     s.substring(0, 4) + "-" + s.substring(4, 6) + "-" + s.substring(6, 8)
   );
+
+const verneform = arrayToObject(require("../../build/verneform").items, "kode");
+const verneplan = arrayToObject(
+  require("../../build/verneplan").items,
+  "tallkode"
+);
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde", ".geojson");
 const wiki = io.lesDatafil("wikidata_naturvernområde").items;
@@ -45,15 +55,12 @@ function flett(mdir, wiki) {
   delete e.ident_navnerom;
   delete e.objekttype;
   e.navn = { navn: e.navn };
-  e.verneform = { kode: e.verneform, ...verneform[e.verneform] };
-  e.verneplan = { indeks: e.vern_verneplan, ...verneplan[e.vern_verneplan] };
+  e.verneform = verneform[e.verneform];
+  e.verneplan = verneplan[e.vern_verneplan];
 
   if (!verneplan[e.vern_verneplan]) {
     // Se https://github.com/Artsdatabanken/naturvern-lastejobb/issues/2
-    log.warn(
-      e.ident_lokalid + " mangler verneplan (skal antagelig være kvartær.."
-    );
-    debugger;
+    log.warn(e.faktaark + " mangler verneplan (skal antagelig være kvartær..");
   }
   delete e.vern_verneplan;
   moveKey(e, "offisieltnavn", "navn.offisielt");
