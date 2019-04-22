@@ -19,15 +19,15 @@ const coordWktToArray = coord => {
 
 const forvaltningsmyndighet = arrayToObject(
   require("../../naturvern-data/forvaltningsmyndighet").items,
-  "kodefremmed"
+  "kodeautor"
 );
 const verneform = arrayToObject(
   require("../../naturvern-data/verneform").items,
-  "kode"
+  "kodeautor"
 );
 const verneplan = arrayToObject(
   require("../../naturvern-data/verneplan").items,
-  "tallkode"
+  "kodeautor"
 );
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde", ".geojson");
