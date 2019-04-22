@@ -1,3 +1,4 @@
+process.env.DEBUG = "*";
 const { io, log } = require("lastejobb");
 
 const arrayToObject = (arr, key) =>
@@ -11,7 +12,15 @@ const parseInvalidDate = s =>
   new Date(
     s.substring(0, 4) + "-" + s.substring(4, 6) + "-" + s.substring(6, 8)
   );
+const coordWktToArray = coord => {
+  const ll = coord.match(/\((?<lon>.*) (?<lat>.*)\)/).groups;
+  return { longitude: parseFloat(ll.lon), latitude: parseFloat(ll.lat) };
+};
 
+const forvaltningsmyndighet = arrayToObject(
+  require("../../naturvern-data/forvaltningsmyndighet").items,
+  "kodefremmed"
+);
 const verneform = arrayToObject(
   require("../../naturvern-data/verneform").items,
   "kode"
@@ -59,7 +68,14 @@ function flett(mdir, wiki) {
   e.navn = { navn: e.navn };
   e.verneform = verneform[e.verneform];
   e.verneplan = verneplan[e.vern_verneplan];
+  e.forvaltning = forvaltningsmyndighet[e.forvaltningsmyndighettype];
 
+  if (!forvaltningsmyndighet[e.forvaltningsmyndighettype])
+    log.warn(
+      e.faktaark +
+        " mangler forvaltningsmyndighettype " +
+        e.forvaltningsmyndighettype
+    );
   if (!verneplan[e.vern_verneplan]) {
     // Se https://github.com/Artsdatabanken/naturvern-lastejobb/issues/2
     log.warn(e.faktaark + " mangler verneplan (skal antagelig være kvartær..");
@@ -72,7 +88,6 @@ function flett(mdir, wiki) {
   moveKey(e, "article", "lenke.wikipedia");
   moveKey(e, "item", "lenke.wikidata");
   moveKey(e, "forv_mynd", "forvaltning.myndighet");
-  moveKey(e, "forvaltningsmyndighettype", "forvaltning.myndighettype");
   moveKey(e, "truetvurdering", "vurdering.truet");
   moveKey(e, "iucn", "vurdering.iucn");
   moveKey(e, "vernnetverk", "vurdering.nettverk");
@@ -83,10 +98,12 @@ function flett(mdir, wiki) {
   delete e.itemLabel;
   delete e.naturbase;
 
+  if (e.coords) e.coords = coordWktToArray(e.coords);
   if (e.inception) {
     e.revisjon.dato.førstvernet = e.inception;
     delete e.inception;
   }
+  moveKey(e, "coords", "geografi.senter");
   if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
   delete e.vernedato;
   return e;
