@@ -29,6 +29,10 @@ const verneplan = arrayToObject(
   require("../../naturvern-data/verneplan").items,
   "kodeautor"
 );
+const truetvurdering = arrayToObject(
+  require("../../naturvern-data/truetvurdering").items,
+  "kodeautor"
+);
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde", ".geojson");
 const wiki = lesWikidata("wikidata_naturvernområde");
@@ -69,7 +73,10 @@ function flett(mdir, wiki) {
   e.verneform = verneform[e.verneform];
   e.verneplan = verneplan[e.vern_verneplan];
   e.forvaltning = forvaltningsmyndighet[e.forvaltningsmyndighettype];
-
+  e.vurdering = { truet: truetvurdering[e.truetvurdering] };
+  if (!truetvurdering[e.truetvurdering])
+    log.warn(e.faktaark + " mangler truetvurdering " + e.truetvurdering);
+  delete e.truetvurdering;
   if (!forvaltningsmyndighet[e.forvaltningsmyndighettype])
     log.warn(
       e.faktaark +
@@ -90,7 +97,6 @@ function flett(mdir, wiki) {
   moveKey(e, "article", "lenke.wikipedia");
   moveKey(e, "item", "lenke.wikidata");
   moveKey(e, "forv_mynd", "forvaltning.myndighet");
-  moveKey(e, "truetvurdering", "vurdering.truet");
   moveKey(e, "iucn", "vurdering.iucn");
   moveKey(e, "vernnetverk", "vurdering.nettverk");
   moveKey(e, "moblandprioritet", "vurdering.moblandprioritet");
