@@ -26,7 +26,7 @@ Datasettet som er resultatet av lastejobben havner i repo [naturvern-data](https
 
 * [Om logo](./logo/README.md)
 
-<img src="./logo/logo.svg" alt="logo" width="120px">
+<img src="https://github.com/Artsdatabanken/naturvern-data/blob/master/logo/40px.png" alt="logo">
 
 ## Visuelt uttrykk
 
