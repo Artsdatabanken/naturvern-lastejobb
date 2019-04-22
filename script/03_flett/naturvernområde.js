@@ -76,6 +76,7 @@ function flett(mdir, wiki) {
         " mangler forvaltningsmyndighettype " +
         e.forvaltningsmyndighettype
     );
+  delete e.forvaltningsmyndighettype;
   if (!verneplan[e.vern_verneplan]) {
     // Se https://github.com/Artsdatabanken/naturvern-lastejobb/issues/2
     log.warn(e.faktaark + " mangler verneplan (skal antagelig være kvartær..");
