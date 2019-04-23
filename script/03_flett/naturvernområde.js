@@ -1,4 +1,5 @@
 process.env.DEBUG = "*";
+process.env.BUILD = "./naturvern-data";
 const { io, log } = require("lastejobb");
 
 const arrayToObject = (arr, key) =>
@@ -14,7 +15,7 @@ const parseInvalidDate = s =>
   );
 const coordWktToArray = coord => {
   const ll = coord.match(/\((?<lon>.*) (?<lat>.*)\)/).groups;
-  return { longitude: parseFloat(ll.lon), latitude: parseFloat(ll.lat) };
+  return { lengde: parseFloat(ll.lon), bredde: parseFloat(ll.lat) };
 };
 
 const forvaltningsmyndighet = arrayToObject(
@@ -31,6 +32,10 @@ const verneplan = arrayToObject(
 );
 const truetvurdering = arrayToObject(
   require("../../naturvern-data/truetvurdering").items,
+  "kodeautor"
+);
+const iucn = arrayToObject(
+  require("../../naturvern-data/iucn").items,
   "kodeautor"
 );
 
@@ -69,26 +74,34 @@ function flett(mdir, wiki) {
   });
   delete e.ident_navnerom;
   delete e.objekttype;
-  e.navn = { navn: e.navn };
+  e.navn = { kort: e.navn };
   e.verneform = verneform[e.verneform];
   e.verneplan = verneplan[e.vern_verneplan];
-  e.forvaltning = forvaltningsmyndighet[e.forvaltningsmyndighettype];
+  e.forvaltning = {
+    ansvarlig: forvaltningsmyndighet[e.forvaltningsmyndighettype]
+  };
   e.vurdering = { truet: truetvurdering[e.truetvurdering] };
   if (!truetvurdering[e.truetvurdering])
     log.warn(e.faktaark + " mangler truetvurdering " + e.truetvurdering);
-  delete e.truetvurdering;
+  if (e.iucn) {
+    e.vurdering.iucn = iucn[e.iucn];
+    if (!iucn[e.iucn]) log.warn(e.faktaark + " mangler iucn " + e.iucn);
+  }
   if (!forvaltningsmyndighet[e.forvaltningsmyndighettype])
     log.warn(
       e.faktaark +
         " mangler forvaltningsmyndighettype " +
         e.forvaltningsmyndighettype
     );
-  delete e.forvaltningsmyndighettype;
   if (!verneplan[e.vern_verneplan]) {
     // Se https://github.com/Artsdatabanken/naturvern-lastejobb/issues/2
     log.warn(e.faktaark + " mangler verneplan (skal antagelig være kvartær..");
   }
+  delete e.truetvurdering;
+  delete e.forvaltningsmyndighettype;
   delete e.vern_verneplan;
+  delete e.iucn;
+
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.offisielt");
   moveKey(e, "url", "lenke.offisiell");
@@ -96,8 +109,7 @@ function flett(mdir, wiki) {
   moveKey(e, "verneforskrift", "lenke.verneforskrift");
   moveKey(e, "article", "lenke.wikipedia");
   moveKey(e, "item", "lenke.wikidata");
-  moveKey(e, "forv_mynd", "forvaltning.myndighet");
-  moveKey(e, "iucn", "vurdering.iucn");
+  moveKey(e, "forv_mynd", "forvaltning.instans.navn");
   moveKey(e, "vernnetverk", "vurdering.nettverk");
   moveKey(e, "moblandprioritet", "vurdering.moblandprioritet");
   moveKey(e, "vernrevisjon", "revisjon.status");
