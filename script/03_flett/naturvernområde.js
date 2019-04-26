@@ -124,7 +124,7 @@ function flett(mdir, wiki) {
     e.revisjon.dato.førstvernet = e.inception;
     delete e.inception;
   }
-  moveKey(e, "coords", "geografi.senter");
+  moveKey(e, "coords", "geografi.punkt");
   if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
   delete e.vernedato;
   return e;
