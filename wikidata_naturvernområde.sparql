@@ -1,5 +1,3 @@
-# Opplysninger om Norske naturvernområder
-#SELECT ?item ?title ?inception ?dissolved ?elevation ?article ?url ?image ?naturbase ?itemLabel WHERE {
 SELECT * WHERE {
   ?item p:P31/ps:P31/wdt:P279* wd:Q473972.
 	{
@@ -11,7 +9,7 @@ SELECT * WHERE {
 	}
   OPTIONAL { ?item wdt:P2044 ?elevation. }
   OPTIONAL { ?item wdt:P856 ?url. }
-  OPTIONAL { ?item wdt:P18 ?image. }
+  OPTIONAL { ?item wdt:P18 ?foto. }
   OPTIONAL { ?item wdt:P625 ?coords. }
   OPTIONAL { ?item wdt:P571 ?inception. }
   OPTIONAL { ?item wdt:P576 ?dissolved. }

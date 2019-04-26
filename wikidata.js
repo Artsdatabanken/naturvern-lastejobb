@@ -14,12 +14,7 @@ async function query(sparqlQuery, destFile) {
 
 function queryFromFile(sparqlFilePath, destFile) {
   const queryText = fs.readFileSync(sparqlFilePath);
-  return query(
-    queryText,
-    destFile
-  ); /*.then(json => {
-    fs.writeFileSync(destPath, JSON.stringify(json));
-  });*/
+  return query(queryText, destFile);
 }
 
 module.exports = { query, queryFromFile };

@@ -105,6 +105,7 @@ function flett(mdir, wiki) {
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.offisielt");
   moveKey(e, "url", "lenke.offisiell");
+  moveKey(e, "image", "foto");
   moveKey(e, "faktaark", "lenke.faktaark");
   moveKey(e, "verneforskrift", "lenke.verneforskrift");
   moveKey(e, "article", "lenke.wikipedia");
@@ -125,6 +126,9 @@ function flett(mdir, wiki) {
     delete e.inception;
   }
   moveKey(e, "coords", "geografi.punkt");
+  if (e.elevation) e.elevation = parseFloat(e.elevation);
+  moveKey(e, "elevation", "geografi.elevasjon");
+
   if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
   delete e.vernedato;
   return e;
