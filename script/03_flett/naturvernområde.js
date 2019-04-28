@@ -59,13 +59,7 @@ Object.values(unikeområder).forEach(props => {
 });
 
 r.sort((a, b) => (a.ident_lokalid > b.ident_lokalid ? 1 : -1));
-const dok = {
-  items: r,
-  meta: {
-    url: `https://github.com/Artsdatabanken/naturvern-data/blob/master/naturvernområde.json`
-  }
-};
-io.skrivBuildfil(__filename, dok);
+io.skrivBuildfil(__filename, r);
 
 function flett(mdir, wiki) {
   const e = Object.assign({}, mdir, wiki);
