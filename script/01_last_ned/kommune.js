@@ -3,7 +3,7 @@ const path = require("path");
 
 http
   .downloadBinary(
-    "https://github.com/Artsdatabanken/kommune-kart/blob/master/kommune.geojson",
+    "https://github.com/Artsdatabanken/kommune-kart/raw/master/kommune_4326.geojson",
     `kommune.geojson`
   )
   .catch(err => {

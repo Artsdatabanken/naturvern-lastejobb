@@ -1,17 +1,15 @@
 const { io, log } = require("lastejobb");
 const geonorge = io.lesDatafil("geonorge_naturvernområde", ".geojson");
 
-let vo = io.lesDatafil("naturvern-geometri", ".geojson");
+let vo = io.lesDatafil("geonorge_naturvernområde.geojson");
 const areas = geonorge.features.reduce((acc, e) => {
   acc[e.properties.ident_lokalid] = e;
-  kartverket_kommune;
   return acc;
 }, {});
 
 var PolygonLookup = require("polygon-lookup");
 
-let basisdata = io.lesDatafil("kommune.geojson");
-const kommuner = basisdata["administrative_enheter.kommune"];
+let kommuner = io.lesDatafil("kommune.geojson");
 
 var lookup = new PolygonLookup(kommuner);
 
@@ -35,10 +33,9 @@ function finnOverlappendeKommuner(geometry) {
   return Object.keys(hits);
 }
 
-Object.keys(vo).forEach(iid => {
-  const v = vo[iid];
+vo.features.forEach(v => {
   const kommuner = finnOverlappendeKommuner(v.geometry);
-  if (kommuner.length <= 0) manglerKommune.push(vo.properties.OMRADENAVN);
+  if (kommuner.length <= 0) manglerKommune.push(v.properties.ident_lokalid);
 });
 
 const total = Object.keys(vo).length;
