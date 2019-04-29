@@ -59,7 +59,7 @@ Object.values(unikeområder).forEach(props => {
 });
 
 r.sort((a, b) => (a.ident_lokalid > b.ident_lokalid ? 1 : -1));
-io.skrivBuildfil(__filename, r);
+io.skrivBuildfil("naturvernområde.json", r);
 
 function flett(mdir, wiki) {
   const e = Object.assign({}, mdir, wiki);
