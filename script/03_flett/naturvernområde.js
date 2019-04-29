@@ -8,7 +8,7 @@ const arrayToObject = (arr, key) =>
     return acc;
   }, {});
 
-const lesSparqlOutput = fil => io.lesDatafil(fil).items.results.bindings;
+const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
 const parseInvalidDate = s =>
   new Date(
     s.substring(0, 4) + "-" + s.substring(4, 6) + "-" + s.substring(6, 8)
