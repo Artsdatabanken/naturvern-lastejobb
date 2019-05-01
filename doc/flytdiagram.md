@@ -17,7 +17,7 @@ graph LR;
     end
     wikidata-->|SPARQL|naturvern-lastejobb;
     mdir-->|JSON|naturvern-lastejobb;
-    mdir-->|JSON|naturvern-kart-lastejobb;
+    mdir-->|GeoJSON|naturvern-kart-lastejobb;
     naturvern-kart-lastejobb-->|GeoJSON|naturvern-kart;
     naturvern-lastejobb-->|JSON|naturvern;
     kommune-kart-->|GeoJSON|naturvern-kart-lastejobb(naturvern-kart-lastejobb);
