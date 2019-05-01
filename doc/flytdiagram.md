@@ -1,11 +1,11 @@
 ```mermaid
 
-graph TB;
+graph LR;
   linkStyle default interpolate monotoneX
     subgraph Inndata
-      kommune-kart[kommune-kart<br/>GitHub]
-      wikidata[Wikidata<br/>Verneområde metadata]
-      mdir[Miljødirektoratet<br/>Verneområde geometri og metadata]
+      kommune-kart[kommune-kart]
+      wikidata[Wikidata - metadata]
+      mdir[Miljødirektoratet - kart og metadata]
     end
     subgraph Lastejobb
       naturvern-kart-lastejobb(naturvern-kart-lastejobb)
