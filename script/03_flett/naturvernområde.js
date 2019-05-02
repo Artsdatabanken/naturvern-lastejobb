@@ -1,5 +1,5 @@
 process.env.DEBUG = "*";
-process.env.BUILD = "./naturvern-data";
+process.env.BUILD = "./naturvern";
 const { io, json, log } = require("lastejobb");
 
 const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
@@ -13,30 +13,30 @@ const coordWktToArray = coord => {
 };
 
 const forvaltningsmyndighet = json.arrayToObject(
-  require("../../naturvern-data/forvaltningsmyndighet").items,
+  require("../../naturvern/forvaltningsmyndighet").items,
   "kodeautor"
 );
 const verneform = json.arrayToObject(
-  require("../../naturvern-data/verneform").items,
+  require("../../naturvern/verneform").items,
   "kodeautor"
 );
 const verneplan = json.arrayToObject(
-  require("../../naturvern-data/verneplan").items,
+  require("../../naturvern/verneplan").items,
   "kodeautor"
 );
 const truetvurdering = json.arrayToObject(
-  require("../../naturvern-data/truetvurdering").items,
+  require("../../naturvern/truetvurdering").items,
   "kodeautor"
 );
 const iucn = json.arrayToObject(
-  require("../../naturvern-data/iucn").items,
+  require("../../naturvern/iucn").items,
   "kodeautor"
 );
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde.geojson");
 const wiki = lesWikidata("wikidata_naturvernområde");
-const iKommune = json.arrayToObject(
-  io.lesDatafil("naturvernområde_i_kommune.json").items,
+const geo = json.arrayToObject(
+  io.lesDatafil("naturvernområde_kart.json").items,
   "id"
 );
 
@@ -125,11 +125,12 @@ function flett(mdir, wiki) {
   if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
   delete e.vernedato;
 
-  const ikommune = iKommune[e.kodeautor];
-  if (ikommune) {
+  const geovv = geo[e.kodeautor];
+  if (geovv) {
     e.geografi = e.geografi || {};
-    e.geografi.kommune = ikommune.kommuner;
+    e.geografi.kommune = geovv.kommuner;
   }
+  e.geografi.areal = geovv.areal;
   return e;
 }
 
