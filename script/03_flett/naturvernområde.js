@@ -68,7 +68,11 @@ function flett(mdir, wiki) {
   delete e.ident_navnerom;
   delete e.objekttype;
   e.navn = { kort: e.navn };
+  if (e.verneform && !verneform[e.verneform])
+    log.warn("Mangler definisjon verneform: " + e.verneform);
   e.verneform = verneform[e.verneform];
+  if (e.verneplan && !verneform[e.verneplan])
+    log.warn("Mangler definisjon verneform: " + e.verneplan);
   e.verneplan = verneplan[e.vern_verneplan];
   e.forvaltning = {
     ansvarlig: forvaltningsmyndighet[e.forvaltningsmyndighettype]

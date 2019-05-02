@@ -2,7 +2,7 @@ const { io } = require("lastejobb");
 
 let fylker = io.lesDatafil("fylke.json").items;
 const r = lagFylkesmann(fylker);
-io.skrivBuildfil(__filename, { items: r });
+io.skrivBuildfil("forvaltningsinstans.json", { items: r });
 
 function lagFylkesmann(kilde) {
   const r = [];
