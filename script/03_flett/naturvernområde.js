@@ -1,12 +1,6 @@
 process.env.DEBUG = "*";
 process.env.BUILD = "./naturvern-data";
-const { io, log } = require("lastejobb");
-
-const arrayToObject = (arr, key) =>
-  arr.reduce((acc, e) => {
-    acc[e[key]] = e;
-    return acc;
-  }, {});
+const { io, json, log } = require("lastejobb");
 
 const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
 const parseInvalidDate = s =>
@@ -18,29 +12,34 @@ const coordWktToArray = coord => {
   return { lengde: parseFloat(ll.lon), bredde: parseFloat(ll.lat) };
 };
 
-const forvaltningsmyndighet = arrayToObject(
+const forvaltningsmyndighet = json.arrayToObject(
   require("../../naturvern-data/forvaltningsmyndighet").items,
   "kodeautor"
 );
-const verneform = arrayToObject(
+const verneform = json.arrayToObject(
   require("../../naturvern-data/verneform").items,
   "kodeautor"
 );
-const verneplan = arrayToObject(
+const verneplan = json.arrayToObject(
   require("../../naturvern-data/verneplan").items,
   "kodeautor"
 );
-const truetvurdering = arrayToObject(
+const truetvurdering = json.arrayToObject(
   require("../../naturvern-data/truetvurdering").items,
   "kodeautor"
 );
-const iucn = arrayToObject(
+const iucn = json.arrayToObject(
   require("../../naturvern-data/iucn").items,
   "kodeautor"
 );
 
-const geonorge = io.lesDatafil("geonorge_naturvernområde", ".geojson");
+const geonorge = io.lesDatafil("geonorge_naturvernområde.geojson");
 const wiki = lesWikidata("wikidata_naturvernområde");
+const iKommune = json.arrayToObject(
+  io.lesDatafil("naturvernområde_i_kommune.json").items,
+  "id"
+);
+
 const include = {
   Naturvernområde: true
 };
@@ -125,6 +124,12 @@ function flett(mdir, wiki) {
 
   if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
   delete e.vernedato;
+
+  const ikommune = iKommune[e.kodeautor];
+  if (ikommune) {
+    e.geografi = e.geografi || {};
+    e.geografi.kommune = ikommune.kommuner;
+  }
   return e;
 }
 
