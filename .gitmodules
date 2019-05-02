@@ -1,3 +1,3 @@
-[submodule "naturvern-data"]
-	path = naturvern-data
-	url = https://github.com/Artsdatabanken/naturvern-data
+[submodule "naturvern"]
+	path = naturvern
+	url = https://github.com/Artsdatabanken/naturvern

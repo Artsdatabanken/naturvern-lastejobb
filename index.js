@@ -1,5 +1,5 @@
 const { kjørLastejobberUnder } = require("lastejobb");
 
-process.env.BUILD = "./naturvern-data";
+process.env.BUILD = "./naturvern";
 
 kjørLastejobberUnder("script/");
