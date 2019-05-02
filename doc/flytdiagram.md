@@ -13,7 +13,7 @@ graph LR;
     naturvern-kart[naturvern-kart]
     naturvern[naturvern]
     wikidata-->|SPARQL|naturvern-lastejobb;
-    kommune-->|SPARQL|naturvern-lastejobb;
+    kommune-->|JSON|naturvern-lastejobb;
     mdir-->|GeoJSON egenskaper|naturvern-lastejobb;
     mdir-->|GeoJSON geometri|naturvern-kart-lastejobb;
     naturvern-kart-lastejobb-->|GeoJSON, JSON|naturvern-kart;
