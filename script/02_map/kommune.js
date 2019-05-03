@@ -6,7 +6,7 @@ let kommuner = io.lesDatafil("kommune.json").items;
 const r = [];
 lagKoder(r, fylker, "fylke");
 lagKoder(r, kommuner, "kommune");
-io.skrivBuildfil(__filename, r);
+io.skrivBuildfil("kommune.json", r);
 
 function lagKoder(r, kilde, nivå) {
   kilde.forEach(o => {
