@@ -10,7 +10,7 @@ io.skrivBuildfil("kommune.json", r);
 
 function lagKoder(r, kilde, nivå) {
   kilde.forEach(o => {
-    const key = "VV-AO-" + o.code.replace("NO-", "");
+    const key = "VV-" + o.kode;
     const e = {
       kode: key,
       navn: { nor: "Naturvernområde i " + o.itemLabel + " " + nivå }
