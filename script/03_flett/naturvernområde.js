@@ -100,7 +100,7 @@ function flett(mdir, wiki) {
   delete e.iucn;
 
   moveKey(e, "ident_lokalid", "kodeautor");
-  moveKey(e, "offisieltnavn", "navn.offisielt");
+  moveKey(e, "offisieltnavn", "navn.nor");
   moveKey(e, "url", "lenke.offisiell");
   moveKey(e, "image", "foto");
   moveKey(e, "faktaark", "lenke.faktaark");
