@@ -98,9 +98,10 @@ function flett(mdir, wiki) {
   delete e.vern_verneplan;
   delete e.iucn;
 
-  e.offisieltnavn =
-    e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase();
-  delete e.navn;
+  e.navn = {
+    nob: e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase()
+  };
+  delete e.offisieltnavn;
 
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.nob");
