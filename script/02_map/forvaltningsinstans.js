@@ -7,10 +7,9 @@ io.skrivBuildfil("forvaltningsinstans.json", { items: r });
 function lagFylkesmann(kilde) {
   const r = [];
   kilde.forEach(o => {
-    if (!o.kode) debugger;
     const e = {
-      navn: { nor: "Fylkesmannen i " + o.itemLabel },
-      kode: "VV-FM-FM-" + o.kode
+      navn: { nor: "Fylkesmannen i " + o.navn.nor },
+      kode: "VV-FM-" + o.kode.replace("AO", "FM")
     };
     r.push(e);
   });
