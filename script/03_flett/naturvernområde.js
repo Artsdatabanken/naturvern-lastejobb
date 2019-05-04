@@ -99,11 +99,11 @@ function flett(mdir, wiki) {
   delete e.iucn;
 
   e.offisieltnavn =
-    e.offisieltnavn || e.navn + " " + e.verneform.navn.nb.toLowerCase();
+    e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase();
   delete e.navn;
 
   moveKey(e, "ident_lokalid", "kodeautor");
-  moveKey(e, "offisieltnavn", "navn.nor");
+  moveKey(e, "offisieltnavn", "navn.nob");
   moveKey(e, "url", "lenke.offisiell");
   moveKey(e, "image", "foto");
   moveKey(e, "faktaark", "lenke.faktaark");
