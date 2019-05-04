@@ -67,7 +67,6 @@ function flett(mdir, wiki) {
   });
   delete e.ident_navnerom;
   delete e.objekttype;
-  e.navn = { kort: e.navn };
   if (e.verneform && !verneform[e.verneform])
     log.warn("Mangler definisjon verneform: " + e.verneform);
   e.verneform = verneform[e.verneform];
@@ -98,6 +97,10 @@ function flett(mdir, wiki) {
   delete e.forvaltningsmyndighettype;
   delete e.vern_verneplan;
   delete e.iucn;
+
+  e.offisieltnavn =
+    e.offisieltnavn || e.navn + " " + e.verneform.navn.nb.toLowerCase();
+  delete e.navn;
 
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.nor");
