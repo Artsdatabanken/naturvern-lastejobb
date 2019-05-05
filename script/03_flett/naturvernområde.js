@@ -106,7 +106,7 @@ function flett(mdir, wiki) {
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.nob");
   moveKey(e, "url", "lenke.offisiell");
-  moveKey(e, "image", "foto");
+  moveKey(e, "foto", "mediakilde.foto");
   moveKey(e, "faktaark", "lenke.faktaark");
   moveKey(e, "verneforskrift", "lenke.verneforskrift");
   moveKey(e, "article", "lenke.wikipedia");
