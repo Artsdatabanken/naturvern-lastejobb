@@ -102,7 +102,7 @@ function flett(mdir, wiki) {
     nob: e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase()
   };
   delete e.offisieltnavn;
-
+  e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "offisieltnavn", "navn.nob");
   moveKey(e, "url", "lenke.offisiell");
@@ -182,4 +182,21 @@ function value(e) {
   if (e.datatype === "http://www.w3.org/2001/XMLSchema#dateTime")
     return new Date(e.value);
   return e.value;
+}
+
+//https://lovdata.no/for/lf/mv/xv-19830128-0100.html
+//https://lovdata.no/dokument/LF/forskrift/1983-01-28-100
+
+function fixBrokenUrlLovdata(url) {
+  if (!url || url.indexOf("for/lf") < 0) return url;
+  const parts = url.split("-");
+  const num = parts[1];
+  const year = num.substring(0, 4);
+  const month = num.substring(4, 6);
+  const day = num.substring(6, 8);
+  const seq = parts[2].replace(".html", "");
+  url = `https://lovdata.no/dokument/LF/forskrift/${year}-${month}-${day}-${parseInt(
+    seq
+  )}`;
+  return url;
 }
