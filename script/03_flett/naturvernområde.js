@@ -14,30 +14,30 @@ const coordWktToArray = coord => {
 
 const forvaltningsmyndighet = json.arrayToObject(
   require("../../naturvern/forvaltningsmyndighet").items,
-  "kodeautor"
+  { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
 const verneform = json.arrayToObject(
   require("../../naturvern/verneform").items,
-  "kodeautor"
+  { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
 const verneplan = json.arrayToObject(
   require("../../naturvern/verneplan").items,
-  "kodeautor"
+  { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
 const truetvurdering = json.arrayToObject(
   require("../../naturvern/truetvurdering").items,
-  "kodeautor"
+  { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
-const iucn = json.arrayToObject(
-  require("../../naturvern/iucn").items,
-  "kodeautor"
-);
+const iucn = json.arrayToObject(require("../../naturvern/iucn").items, {
+  uniqueKey: "kodeautor",
+  removeKeyProperty: false
+});
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde.geojson");
 const wiki = lesWikidata("wikidata_naturvernområde");
 const geo = json.arrayToObject(
   io.lesDatafil("naturvernområde_kart.json").items,
-  "id"
+  { uniqueKey: "id" }
 );
 
 const include = {
@@ -137,8 +137,8 @@ function flett(mdir, wiki) {
   if (geovv) {
     e.geografi = e.geografi || {};
     e.geografi.kommune = geovv.kommuner;
-  }
-  e.geografi.areal = geovv.areal;
+    e.geografi.areal = geovv.areal;
+  } else debugger;
   return e;
 }
 
