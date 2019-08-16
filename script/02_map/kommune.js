@@ -10,6 +10,7 @@ io.skrivBuildfil("kommune.json", r);
 
 function lagKoder(r, kilde, nivå) {
   kilde.forEach(o => {
+    if (!o.navn.nob) throw new Error("Mangler navn.");
     const key = "VV-" + o.kode;
     const e = {
       kode: key,
