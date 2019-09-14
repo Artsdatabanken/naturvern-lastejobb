@@ -13,22 +13,32 @@ const coordWktToArray = coord => {
 };
 
 const forvaltningsmyndighet = json.arrayToObject(
-  require("../../naturvern/forvaltningsmyndighet").items,
+  require("../../../build/forvaltningsmyndighet").items,
   { uniqueKey: "kodeautor", removeKeyProperty: false }
+);
+const forvaltningsinstans = json.arrayToObject(
+  require("../../../build/forvaltningsinstans").items,
+  { uniqueKey: "kode", removeKeyProperty: false }
 );
 const verneform = json.arrayToObject(
-  require("../../naturvern/verneform").items,
-  { uniqueKey: "kodeautor", removeKeyProperty: false }
+  require("../../../build/verneform").items,
+  {
+    uniqueKey: "kodeautor",
+    removeKeyProperty: false
+  }
 );
 const verneplan = json.arrayToObject(
-  require("../../naturvern/verneplan").items,
-  { uniqueKey: "kodeautor", removeKeyProperty: false }
+  require("../../../build/verneplan").items,
+  {
+    uniqueKey: "kodeautor",
+    removeKeyProperty: false
+  }
 );
 const truetvurdering = json.arrayToObject(
-  require("../../naturvern/truetvurdering").items,
+  require("../../../build/truetvurdering").items,
   { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
-const iucn = json.arrayToObject(require("../../naturvern/iucn").items, {
+const iucn = json.arrayToObject(require("../../../build/iucn").items, {
   uniqueKey: "kodeautor",
   removeKeyProperty: false
 });
