@@ -1,5 +1,4 @@
 const { http, log } = require("lastejobb");
-const path = require("path");
 
 http
   .downloadBinary(
