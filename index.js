@@ -1,5 +1,5 @@
+if (!process.env.DEBUG) process.env.DEBUG = "*";
 const { kjørLastejobberUnder } = require("lastejobb");
 
-process.env.BUILD = "./naturvern";
-
-kjørLastejobberUnder("script/");
+const scripPath = "stages/" + (process.argv[2] || "");
+kjørLastejobberUnder(scripPath);
