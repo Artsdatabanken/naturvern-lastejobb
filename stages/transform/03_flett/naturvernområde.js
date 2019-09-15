@@ -1,6 +1,7 @@
 process.env.DEBUG = "*";
 process.env.BUILD = "./naturvern";
 const { io, json, log } = require("lastejobb");
+const moveKey = json.moveKey;
 
 const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
 const parseInvalidDate = s =>
@@ -150,21 +151,6 @@ function flett(mdir, wiki) {
     e.geografi.areal = geovv.areal;
   } else debugger;
   return e;
-}
-
-function moveKey(o, src, destPath) {
-  if (!o[src]) return;
-  let node = o;
-  const destArr = destPath.split(".");
-  while (destArr.length > 1) {
-    const dest = destArr.shift();
-    if (!node[dest]) node[dest] = {};
-    node = node[dest];
-  }
-
-  const dest = destArr.pop();
-  node[dest] = o[src];
-  delete o[src];
 }
 
 function lesWikidata(filnavn) {
