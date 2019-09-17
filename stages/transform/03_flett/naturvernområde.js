@@ -1,5 +1,3 @@
-process.env.DEBUG = "*";
-process.env.BUILD = "./naturvern";
 const { io, json, log } = require("lastejobb");
 const moveKey = json.moveKey;
 
@@ -69,7 +67,7 @@ Object.values(unikeområder).forEach(props => {
 });
 
 r.sort((a, b) => (a.kodeautor > b.kodeautor ? 1 : -1));
-io.skrivBuildfil("naturvernområde.json", r);
+io.skrivBuildfil("type.json", r);
 
 function flett(mdir, wiki) {
   const e = Object.assign({}, mdir, wiki);
@@ -109,20 +107,20 @@ function flett(mdir, wiki) {
   delete e.vern_verneplan;
   delete e.iucn;
 
-  e.navn = {
-    nob: e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase()
+  e.tittel = {
+    nob: e.offisieltnavn || e.navn + " " + e.verneform.tittel.nob.toLowerCase()
   };
   delete e.offisieltnavn;
+  delete e.navn;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
   moveKey(e, "ident_lokalid", "kodeautor");
-  moveKey(e, "offisieltnavn", "navn.nob");
   moveKey(e, "url", "lenke.offisiell");
   moveKey(e, "foto", "mediakilde.foto");
   moveKey(e, "faktaark", "lenke.faktaark");
   moveKey(e, "verneforskrift", "lenke.verneforskrift");
   moveKey(e, "article", "lenke.wikipedia");
   moveKey(e, "item", "lenke.wikidata");
-  moveKey(e, "forv_mynd", "forvaltning.instans.navn");
+  moveKey(e, "forv_mynd", "forvaltning.instans.tittel");
   moveKey(e, "vernnetverk", "vurdering.nettverk");
   moveKey(e, "moblandprioritet", "vurdering.moblandprioritet");
   moveKey(e, "vernrevisjon", "revisjon.status");

@@ -14,7 +14,7 @@ function lagKoder(r, kilde, nivå) {
     const key = "VV-" + o.kode;
     const e = {
       kode: key,
-      navn: { nob: "Naturvernområde i " + o.navn.nob + " " + nivå }
+      tittel: { nob: "Naturvernområde i " + o.navn.nob + " " + nivå }
     };
     r.push(e);
   });
