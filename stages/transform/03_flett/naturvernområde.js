@@ -67,7 +67,7 @@ Object.values(unikeområder).forEach(props => {
 });
 
 r.sort((a, b) => (a.kodeautor > b.kodeautor ? 1 : -1));
-io.skrivBuildfil("type.json", r);
+io.skrivBuildfil("naturvernområde.json", r);
 
 function flett(mdir, wiki) {
   const e = Object.assign({}, mdir, wiki);
