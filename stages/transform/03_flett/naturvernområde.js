@@ -108,7 +108,7 @@ function flett(mdir, wiki) {
   delete e.iucn;
 
   e.tittel = {
-    nob: e.offisieltnavn || e.navn + " " + e.verneform.tittel.nob.toLowerCase()
+    nob: e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase()
   };
   delete e.offisieltnavn;
   delete e.navn;
