@@ -1,14 +1,13 @@
 const { io } = require("lastejobb");
 
 const r = [];
-include("naturvernområde.json");
+include("data/relasjon.json");
 
 function include(fn) {
-  if (!fn) return;
-  let rot = io.readJson("./build/" + fn);
+  let rot = io.readJson(fn);
   rot.items.forEach(e => {
     r.push(e);
-    include(e.definisjon);
+    if (e.definisjon) include("./build/" + e.definisjon);
   });
 }
 
