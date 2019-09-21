@@ -148,8 +148,8 @@ function flett(mdir, wiki) {
     e.geografi.kommune = geovv.kommuner;
     e.geografi.areal = geovv.areal;
   } else debugger;
-  e.media = e.media || {};
-  e.media.kart = "thumbnail.png";
+  e.mediakilde = e.mediakilde || {};
+  e.mediakilde.kart = "thumbnail.png";
   return e;
 }
 
