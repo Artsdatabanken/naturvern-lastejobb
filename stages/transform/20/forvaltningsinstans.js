@@ -1,6 +1,6 @@
 const { io } = require("lastejobb");
 
-// Forvaltningsinstanser i de forskjellige fylker
+// Kategorier for forvaltningsinstanser i de forskjellige fylker
 
 let fylker = io.lesDatafil("fylke.json").items;
 const r = lagFylkesmann(fylker);
