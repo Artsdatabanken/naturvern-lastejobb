@@ -40,6 +40,7 @@ function map(vo) {
     tittel: {
       nb: vo.tittel.offisielt
     },
+    foreldre: ["VV"],
     infoUrl: vo.lenke.naturbase, // TODO: Fjern
     relasjon: [],
     ...vo
