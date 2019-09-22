@@ -12,35 +12,35 @@ const coordWktToArray = coord => {
 };
 
 const forvaltningsmyndighet = json.arrayToObject(
-  require("../../../build/forvaltningsmyndighet").items,
+  require("../../../data/naturvern-ubehandlet/forvaltningsmyndighet").items,
   { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
-const forvaltningsinstans = json.arrayToObject(
-  require("../../../build/forvaltningsinstans").items,
-  { uniqueKey: "kode", removeKeyProperty: false }
-);
+
 const verneform = json.arrayToObject(
-  require("../../../build/verneform").items,
+  require("../../../data/naturvern-ubehandlet/verneform").items,
   {
     uniqueKey: "kodeautor",
     removeKeyProperty: false
   }
 );
 const verneplan = json.arrayToObject(
-  require("../../../build/verneplan").items,
+  require("../../../data/naturvern-ubehandlet/verneplan").items,
   {
     uniqueKey: "kodeautor",
     removeKeyProperty: false
   }
 );
 const truetvurdering = json.arrayToObject(
-  require("../../../build/truetvurdering").items,
+  require("../../../data/naturvern-ubehandlet/truetvurdering").items,
   { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
-const iucn = json.arrayToObject(require("../../../build/iucn").items, {
-  uniqueKey: "kodeautor",
-  removeKeyProperty: false
-});
+const iucn = json.arrayToObject(
+  require("../../../data/naturvern-ubehandlet/iucn").items,
+  {
+    uniqueKey: "kodeautor",
+    removeKeyProperty: false
+  }
+);
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde.geojson");
 const wiki = lesWikidata("wikidata_naturvernområde");

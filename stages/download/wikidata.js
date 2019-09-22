@@ -1,5 +1,5 @@
 const wikidata = require("../../wikidata");
-const { io, log } = require("lastejobb");
+const { log } = require("lastejobb");
 const path = require("path");
 
 const query = "./wikidata_naturvernområde.sparql";

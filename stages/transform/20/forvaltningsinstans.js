@@ -1,8 +1,10 @@
 const { io } = require("lastejobb");
 
+// Forvaltningsinstanser i de forskjellige fylker
+
 let fylker = io.lesDatafil("fylke.json").items;
 const r = lagFylkesmann(fylker);
-io.skrivBuildfil("forvaltningsinstans.json", { items: r });
+io.skrivBuildfil("forvaltningsinstans.json", r);
 
 function lagFylkesmann(kilde) {
   const r = [];
