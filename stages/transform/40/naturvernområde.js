@@ -128,7 +128,7 @@ function flett(mdir, wiki) {
   moveKey(e, "områdeplanstatus_plandato", "revisjon.dato.plandato");
   delete e.itemLabel;
   delete e.naturbase;
-
+  if (e.verneform) e.foreldre = [e.verneform.kode];
   e.kode = "VV-" + parseInt(e.kodeautor.substring(2));
   if (e.coords) e.coords = coordWktToArray(e.coords);
   if (e.inception) {

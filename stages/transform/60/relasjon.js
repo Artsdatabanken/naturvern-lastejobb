@@ -40,11 +40,11 @@ function map(vo) {
     tittel: {
       nb: vo.tittel.offisielt
     },
-    foreldre: ["VV"],
     infoUrl: vo.lenke.naturbase, // TODO: Fjern
     relasjon: [],
     ...vo
   };
+
   if (vo.verneform) {
     e.betegnelse = { nb: vo.verneform.navn.nb };
     relasjon(e, "Verneform", vo.verneform.kode);
