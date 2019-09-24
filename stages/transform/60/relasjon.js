@@ -70,6 +70,7 @@ function map(vo) {
       relasjon(e, "Ligger i kommune", "VV-AO-" + fnr + "-" + knr);
       relasjon(e, "Ligger i fylke", "VV-AO-" + fnr);
     });
+    delete vo.geografi.kommune;
   }
   kobleForvaltningsmyndighet(e);
   return e;

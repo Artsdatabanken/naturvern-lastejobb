@@ -107,9 +107,17 @@ function flett(mdir, wiki) {
   delete e.vern_verneplan;
   delete e.iucn;
 
-  e.tittel = {
+  e.tittelx = {
     nob: e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase()
   };
+  e.tittel = {
+    nob: e.navn
+  };
+  if (e.verneform && e.tittelx.nob !== e.tittel.nob) {
+    console.log(
+      `mv "${e.tittel.nob.replace(/\s/g, "_")}" "${e.verneform.navn.nob}"` //${e.tittel.nob.replace(/\s/g, "_")}"`
+    );
+  }
   delete e.offisieltnavn;
   delete e.navn;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
@@ -146,6 +154,7 @@ function flett(mdir, wiki) {
   if (geovv) {
     e.geografi = e.geografi || {};
     e.geografi.kommune = geovv.kommuner;
+    e.geografi.fylke = geovv.fylker;
     e.geografi.areal = geovv.areal;
   } else debugger;
   e.mediakilde = e.mediakilde || {};
