@@ -53,15 +53,14 @@ function map(vo) {
     tittel: {
       nob: vo.navn
     },
-    foreldre: ["VV"],
     relasjon: [],
     ...vo
   };
 
-  if (vo.verneform) {
+  /*  if (vo.verneform) {
     e.betegnelse = { nb: vo.verneform.tittel.nb };
     relasjon(e, "Verneform", vo.verneform.kode);
-  }
+  }*/
   if (vo.verneplan) relasjon(e, "Verneplan", vo.verneplan.kode);
   relasjon(e, "forvaltes av", vo.forvaltning.ansvarlig.kode, "forvalter");
   if (vo.vurdering.truet.kode) {
