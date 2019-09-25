@@ -76,7 +76,8 @@ function flett(mdir, wiki) {
   });
   delete e.ident_navnerom;
   delete e.objekttype;
-  if (e.verneform && !verneform[e.verneform])
+  if (!e.verneform) e.verneform = "X";
+  if (!verneform[e.verneform])
     log.warn("Mangler definisjon verneform: " + e.verneform);
   e.verneform = verneform[e.verneform];
   if (e.verneplan && !verneform[e.verneplan])

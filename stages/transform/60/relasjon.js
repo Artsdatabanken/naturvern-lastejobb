@@ -57,10 +57,6 @@ function map(vo) {
     ...vo
   };
 
-  /*  if (vo.verneform) {
-    e.betegnelse = { nb: vo.verneform.tittel.nb };
-    relasjon(e, "Verneform", vo.verneform.kode);
-  }*/
   if (vo.verneplan) relasjon(e, "Verneplan", vo.verneplan.kode);
   relasjon(e, "forvaltes av", vo.forvaltning.ansvarlig.kode, "forvalter");
   if (vo.vurdering.truet.kode) {
@@ -82,7 +78,6 @@ function map(vo) {
       relasjon(e, "Ligger i kommune", "VV-AO-" + fnr + "-" + knr);
       relasjon(e, "Ligger i fylke", "VV-AO-" + fnr);
     });
-    delete vo.geografi.kommune;
   }
   kobleForvaltningsmyndighet(e);
   return e;
