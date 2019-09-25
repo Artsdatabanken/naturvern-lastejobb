@@ -111,7 +111,7 @@ function flett(mdir, wiki) {
     nob: e.navn
   };
   delete e.offisieltnavn;
-  delete e.tittel;
+  delete e.navn;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "url", "lenke.offisiell");
