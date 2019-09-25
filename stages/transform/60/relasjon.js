@@ -1,6 +1,19 @@
 const { io, log } = require("lastejobb");
 
-let vo = io.readJson("./build/naturvernområde.json");
+let vo = io.readJson("./data/naturvernområde.json");
+
+const år = {};
+vo.items.forEach(o => {
+  const vernedato = o.revisjon.dato.førstvernet || o.revisjon.dato.vernet;
+  if (!vernedato)
+    return log.warn("Mangler dato for vern: " + o.lenke.naturbase);
+  const y = vernedato.substring(0, 4);
+  år[y] = år[y] + 1 || 1;
+});
+
+const tre = {};
+vo.items.forEach(vv => (tre[vv.kode] = map(vv)));
+io.skrivDatafil(__filename, tre);
 
 function relasjon(e, kant, kode, kantRetur, erSubset = true) {
   for (const rl of e.relasjon) if (rl.kode === kode) return;
@@ -38,15 +51,15 @@ function kobleForvaltningsmyndighet(e) {
 function map(vo) {
   let e = {
     tittel: {
-      nb: vo.tittel.offisielt
+      nob: vo.navn
     },
-    infoUrl: vo.lenke.naturbase, // TODO: Fjern
+    foreldre: ["VV"],
     relasjon: [],
     ...vo
   };
 
   if (vo.verneform) {
-    e.betegnelse = { nb: vo.verneform.navn.nb };
+    e.betegnelse = { nb: vo.verneform.tittel.nb };
     relasjon(e, "Verneform", vo.verneform.kode);
   }
   if (vo.verneplan) relasjon(e, "Verneplan", vo.verneplan.kode);
@@ -75,15 +88,3 @@ function map(vo) {
   kobleForvaltningsmyndighet(e);
   return e;
 }
-
-const år = {};
-vo.items.forEach(o => {
-  const vernedato = o.revisjon.dato.førstvernet || o.revisjon.dato.vernet;
-  if (!vernedato)
-    return log.warn("Mangler dato for vern: " + o.lenke.naturbase);
-  const y = vernedato.substring(0, 4);
-  år[y] = år[y] + 1 || 1;
-});
-
-const r = vo.items.map(vv => map(vv));
-io.skrivDatafil(__filename, r);

@@ -67,7 +67,7 @@ Object.values(unikeområder).forEach(props => {
 });
 
 r.sort((a, b) => (a.kodeautor > b.kodeautor ? 1 : -1));
-io.skrivBuildfil("naturvernområde.json", r);
+io.skrivDatafil("naturvernområde.json", r);
 
 function flett(mdir, wiki) {
   const e = Object.assign({}, mdir, wiki);
@@ -107,19 +107,11 @@ function flett(mdir, wiki) {
   delete e.vern_verneplan;
   delete e.iucn;
 
-  e.tittelx = {
-    nob: e.offisieltnavn || e.navn + " " + e.verneform.navn.nob.toLowerCase()
-  };
   e.tittel = {
     nob: e.navn
   };
-  if (e.verneform && e.tittelx.nob !== e.tittel.nob) {
-    console.log(
-      `mv "${e.tittel.nob.replace(/\s/g, "_")}" "${e.verneform.navn.nob}"` //${e.tittel.nob.replace(/\s/g, "_")}"`
-    );
-  }
   delete e.offisieltnavn;
-  delete e.navn;
+  delete e.tittel;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
   moveKey(e, "ident_lokalid", "kodeautor");
   moveKey(e, "url", "lenke.offisiell");
