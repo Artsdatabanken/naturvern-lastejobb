@@ -7,7 +7,7 @@ const path = require("path");
 // Vi leser manuelt oppdatert proxy-fil.
 http
   .downloadBinary(
-    "https://data.artsdatabanken.no/Naturvernomr%C3%A5de/Geonorge_Naturvernomr%C3%A5der_4326.geojson",
+    "https://data.artsdatabanken.no/Naturvernområde/Geonorge_Naturvernområder_4326.geojson",
     `${path.basename(__filename, ".js")}.geojson`
   )
   .catch(err => {

@@ -2,7 +2,7 @@ const { http, log } = require("lastejobb");
 
 http
   .downloadBinary(
-    "https://raw.githubusercontent.com/Artsdatabanken/naturvern-kart/master/naturvernomr%C3%A5de_meta.json",
+    "https://raw.githubusercontent.com/Artsdatabanken/naturvern-kart/master/naturvernområde_meta.json",
     "naturvernområde_kart.json"
   )
   .catch(err => {
