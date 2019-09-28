@@ -144,12 +144,11 @@ function flett(mdir, wiki) {
   delete e.vernedato;
 
   const geovv = geo[e.kodeautor];
-  if (geovv) {
-    e.geografi = e.geografi || {};
-    e.geografi.kommune = geovv.kommuner;
-    e.geografi.fylke = geovv.fylker;
-    e.geografi.areal = geovv.areal;
-  } else debugger;
+  if (!geovv) throw new Error("Mangler geografi for " + e.kodeautor);
+  e.geografi = e.geografi || {};
+  e.geografi.kommune = geovv.kommuner;
+  e.geografi.fylke = geovv.fylker;
+  e.geografi.areal = geovv.areal;
   e.mediakilde = e.mediakilde || {};
   e.mediakilde.kart = "thumbnail.png";
   return e;
