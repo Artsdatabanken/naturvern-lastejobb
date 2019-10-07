@@ -1,24 +1,29 @@
-const { io, json, log } = require("lastejobb");
+const { io, json } = require("lastejobb");
 
 const antallMedSammeTittel = {};
 const antallMedSammeTittelIFylke = {};
 
 const alleFylkerArray = io.lesDatafil("fylke").items;
-const alleFylker = {};
-alleFylkerArray.forEach(e => (alleFylker[e.kode] = e));
+const alleFylker = json.arrayToObject(alleFylkerArray, { uniqueKey: "kode" });
 
 const alleKommunerArray = io.lesDatafil("kommune").items;
-const alleKommuner = {};
-alleKommunerArray.forEach(e => (alleKommuner[e.kode] = e));
+const alleKommuner = json.arrayToObject(alleKommunerArray, {
+  uniqueKey: "kode"
+});
 
 const tre = {};
 include("data/relasjon.json");
 
 unngåDuplikatTittel();
-let verneform = io.readJson("data/naturvern-ubehandlet/verneform.json");
-verneform.items.forEach(e => {
+let verneformArray = io.readJson("data/naturvern-ubehandlet/verneform.json")
+  .items;
+const verneform = json.arrayToObject(verneformArray, {
+  uniqueKey: "kode"
+});
+Object.keys(verneform).forEach(key => {
+  const e = verneform[key];
   e.foreldre = ["VV"];
-  tre[e.kode] = e;
+  tre[key] = e;
 });
 
 include("data/naturvern-ubehandlet/type.json");
