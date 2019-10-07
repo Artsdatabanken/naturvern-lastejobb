@@ -1,6 +1,4 @@
-const fetch = require("node-fetch");
 const fs = require("fs");
-const path = require("path");
 const { http } = require("lastejobb");
 
 // Query-verktøy på https://query.wikidata.org/
@@ -8,7 +6,7 @@ const { http } = require("lastejobb");
 const endpointUrl = "https://query.wikidata.org/sparql";
 
 async function query(sparqlQuery, destFile) {
-  const fullUrl = endpointUrl + "?query=" + encodeURIComponent(sparqlQuery);
+  const fullUrl = endpointUrl + "?query=" + sparqlQuery;
   return await http.downloadJson(fullUrl, destFile);
 }
 
