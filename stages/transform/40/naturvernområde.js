@@ -129,6 +129,9 @@ function flett(mdir, wiki) {
 
   if (e.vernedato) e.revisjon.dato.vernet = new Date(e.vernedato);
   delete e.vernedato;
+  if (e.foerstegangVernet)
+    e.revisjon.dato.førstvernet = new Date(e.foerstegangVernet);
+  delete e.foerstegangVernet;
 
   const geovv = geo[e.kodeautor];
   if (!geovv) throw new Error("Mangler geografi for " + e.kodeautor);
