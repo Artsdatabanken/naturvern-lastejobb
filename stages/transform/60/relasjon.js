@@ -1,4 +1,4 @@
-const { io, log } = require("lastejobb");
+const { io, json, log } = require("lastejobb");
 
 let vo = io.readJson("./data/naturvernområde.json");
 
@@ -11,9 +11,9 @@ vo.items.forEach(o => {
   år[y] = år[y] + 1 || 1;
 });
 
-const tre = {};
-vo.items.forEach(vv => (tre[vv.kode] = map(vv)));
-io.skrivDatafil(__filename, tre);
+const r = vo.items.map(vv => map(vv));
+
+io.skrivDatafil(__filename, json.arrayToObject(r, { uniqueKey: "kode" }));
 
 function relasjon(e, kant, kode, kantRetur, erSubset = true) {
   for (const rl of e.relasjon) if (rl.kode === kode) return;

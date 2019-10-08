@@ -2,40 +2,36 @@ const { io, json, log } = require("lastejobb");
 const moveKey = json.moveKey;
 
 const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
-const parseInvalidDate = s =>
-  new Date(
-    s.substring(0, 4) + "-" + s.substring(4, 6) + "-" + s.substring(6, 8)
-  );
 const coordWktToArray = coord => {
   const ll = coord.match(/\((?<lon>.*) (?<lat>.*)\)/).groups;
   return { lengde: parseFloat(ll.lon), bredde: parseFloat(ll.lat) };
 };
 
 const forvaltningsmyndighet = json.arrayToObject(
-  require("../../../data/naturvern-ubehandlet/forvaltningsmyndighet").items,
+  io.lesDatafil("naturvern-ubehandlet/forvaltningsmyndighet").items,
   { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
 
 const verneform = json.arrayToObject(
-  require("../../../data/naturvern-ubehandlet/verneform").items,
+  io.lesDatafil("naturvern-ubehandlet/verneform").items,
   {
     uniqueKey: "kodeautor",
     removeKeyProperty: false
   }
 );
 const verneplan = json.arrayToObject(
-  require("../../../data/naturvern-ubehandlet/verneplan").items,
+  io.lesDatafil("naturvern-ubehandlet/verneplan").items,
   {
     uniqueKey: "kodeautor",
     removeKeyProperty: false
   }
 );
 const truetvurdering = json.arrayToObject(
-  require("../../../data/naturvern-ubehandlet/truetvurdering").items,
+  io.lesDatafil("naturvern-ubehandlet/truetvurdering").items,
   { uniqueKey: "kodeautor", removeKeyProperty: false }
 );
 const iucn = json.arrayToObject(
-  require("../../../data/naturvern-ubehandlet/iucn").items,
+  io.lesDatafil("naturvern-ubehandlet/iucn").items,
   {
     uniqueKey: "kodeautor",
     removeKeyProperty: false
@@ -49,20 +45,10 @@ const geo = json.arrayToObject(
   { uniqueKey: "id" }
 );
 
-const include = {
-  Naturvernområde: true
-};
-
 const r = [];
-const unikeområder = {};
 geonorge.features.forEach(feature => {
   const props = feature.properties;
-  if (!include[props.objekttype]) return;
-  const key = props["ident_lokalid"];
-  unikeområder[key] = props;
-});
-Object.values(unikeområder).forEach(props => {
-  const key = props["ident_lokalid"];
+  const key = props["naturvernId"];
   r.push(flett(props, wiki[key]));
 });
 
@@ -80,33 +66,30 @@ function flett(mdir, wiki) {
   if (!verneform[e.verneform])
     log.warn("Mangler definisjon verneform: " + e.verneform);
   e.verneform = verneform[e.verneform];
-  if (e.verneplan && !verneform[e.verneplan])
-    log.warn("Mangler definisjon verneform: " + e.verneplan);
-  e.verneplan = verneplan[e.vern_verneplan];
+  if (e.verneplan && !verneplan[e.verneplan])
+    log.warn("Mangler definisjon verneplan: " + e.verneplan);
+  e.verneplan = verneplan[e.verneplan];
   e.forvaltning = {
-    ansvarlig: forvaltningsmyndighet[e.forvaltningsmyndighettype]
+    ansvarlig: forvaltningsmyndighet[e.forvaltningsmyndighetType]
   };
-  e.vurdering = { truet: truetvurdering[e.truetvurdering] };
-  if (!truetvurdering[e.truetvurdering])
-    log.warn(e.faktaark + " mangler truetvurdering " + e.truetvurdering);
+  if (!forvaltningsmyndighet[e.forvaltningsmyndighetType])
+    log.warn(
+      "Mangler definisjon forvaltningsmyndighet: " + e.forvaltningsmyndighetType
+    );
+
+  e.vurdering = { truet: truetvurdering[e.truetVurdering] };
+  if (!truetvurdering[e.truetVurdering])
+    log.warn(e.faktaark + " mangler truetvurdering " + e.truetVurdering);
   if (e.iucn) {
     e.vurdering.iucn = iucn[e.iucn];
     if (!iucn[e.iucn]) log.warn(e.faktaark + " mangler iucn " + e.iucn);
   }
-  if (!forvaltningsmyndighet[e.forvaltningsmyndighettype])
-    log.warn(
-      e.faktaark +
-        " mangler forvaltningsmyndighettype " +
-        e.forvaltningsmyndighettype
-    );
-  if (!verneplan[e.vern_verneplan]) {
-    // Se https://github.com/Artsdatabanken/naturvern-lastejobb/issues/2
-    log.warn(e.faktaark + " mangler verneplan (skal antagelig være kvartær..");
-  }
-  delete e.truetvurdering;
-  delete e.forvaltningsmyndighettype;
-  delete e.vern_verneplan;
+  delete e.truetVurdering;
+  delete e.forvaltningsmyndighetType;
+  delete e.OBJECTID;
   delete e.iucn;
+  delete e.cddaId;
+  delete e["SHAPE.STLength()"];
 
   e.tittel = {
     nob: e.navn
@@ -114,21 +97,24 @@ function flett(mdir, wiki) {
   delete e.offisieltnavn;
   delete e.navn;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
-  moveKey(e, "ident_lokalid", "kodeautor");
+  moveKey(e, "naturvernId", "kodeautor");
   moveKey(e, "url", "lenke.offisiell");
   moveKey(e, "foto", "mediakilde.foto");
   moveKey(e, "faktaark", "lenke.faktaark");
   moveKey(e, "verneforskrift", "lenke.verneforskrift");
   moveKey(e, "article", "lenke.wikipedia");
   moveKey(e, "item", "lenke.wikidata");
-  moveKey(e, "forv_mynd", "forvaltning.instans.tittel");
+  moveKey(e, "forvaltningsmyndighet", "forvaltning.instans.tittel");
   moveKey(e, "vernnetverk", "vurdering.nettverk");
   moveKey(e, "moblandprioritet", "vurdering.moblandprioritet");
-  moveKey(e, "vernrevisjon", "revisjon.status");
+  moveKey(e, "revisjon", "revisjon.status");
   moveKey(e, "vernplanbehov", "revisjon.planbehov");
-  moveKey(e, "områdeplanstatus_plandato", "revisjon.dato.plandato");
+  //  moveKey(e, "områdeplanstatus_plandato", "revisjon.dato.plandato");
+  e.revisjon = e.revisjon || {};
+  e.revisjon.dato = e.revisjon.dato || {};
   delete e.itemLabel;
   delete e.naturbase;
+  delete e.kommune;
   if (e.verneform) e.foreldre = [e.verneform.kode];
   e.kode = "VV-" + parseInt(e.kodeautor.substring(2));
   if (e.coords) e.coords = coordWktToArray(e.coords);
@@ -140,7 +126,7 @@ function flett(mdir, wiki) {
   if (e.elevation) e.elevation = parseFloat(e.elevation);
   moveKey(e, "elevation", "geografi.elevasjon");
 
-  if (e.vernedato) e.revisjon.dato.vernet = parseInvalidDate(e.vernedato);
+  if (e.vernedato) e.revisjon.dato.vernet = new Date(e.vernedato);
   delete e.vernedato;
 
   const geovv = geo[e.kodeautor];
