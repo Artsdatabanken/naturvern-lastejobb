@@ -1,7 +1,7 @@
 const { io, json, log } = require("lastejobb");
 
 const økosystemer = {
-  Marin: "ES-MA",
+  Marin: "ES-AK-MA",
   Terrestrisk: "ES-TE"
 };
 
