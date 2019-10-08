@@ -7,36 +7,20 @@ const coordWktToArray = coord => {
   return { lengde: parseFloat(ll.lon), bredde: parseFloat(ll.lat) };
 };
 
-const forvaltningsmyndighet = json.arrayToObject(
-  io.lesDatafil("naturvern-ubehandlet/forvaltningsmyndighet").items,
-  { uniqueKey: "kodeautor", removeKeyProperty: false }
+const forvaltningsmyndighet = lesEnum(
+  "naturvern-ubehandlet/forvaltningsmyndighet"
 );
+const verneform = lesEnum("naturvern-ubehandlet/verneform");
+const verneplan = lesEnum("naturvern-ubehandlet/verneplan");
+const truetvurdering = lesEnum("naturvern-ubehandlet/truetvurdering");
+const iucn = lesEnum("naturvern-ubehandlet/iucn");
 
-const verneform = json.arrayToObject(
-  io.lesDatafil("naturvern-ubehandlet/verneform").items,
-  {
-    uniqueKey: "kodeautor",
-    removeKeyProperty: false
-  }
-);
-const verneplan = json.arrayToObject(
-  io.lesDatafil("naturvern-ubehandlet/verneplan").items,
-  {
-    uniqueKey: "kodeautor",
-    removeKeyProperty: false
-  }
-);
-const truetvurdering = json.arrayToObject(
-  io.lesDatafil("naturvern-ubehandlet/truetvurdering").items,
-  { uniqueKey: "kodeautor", removeKeyProperty: false }
-);
-const iucn = json.arrayToObject(
-  io.lesDatafil("naturvern-ubehandlet/iucn").items,
-  {
-    uniqueKey: "kodeautor",
-    removeKeyProperty: false
-  }
-);
+function lesEnum(fn) {
+  const src = io.lesDatafil(fn).items;
+  const r = {};
+  src.forEach(e => (r[e.kodeautor] = e));
+  return r;
+}
 
 const geonorge = io.lesDatafil("geonorge_naturvernområde.geojson");
 const wiki = lesWikidata("wikidata_naturvernområde");
@@ -62,7 +46,6 @@ function flett(mdir, wiki) {
   });
   delete e.ident_navnerom;
   delete e.objekttype;
-  if (!e.verneform) e.verneform = "X";
   if (!verneform[e.verneform])
     log.warn("Mangler definisjon verneform: " + e.verneform);
   e.verneform = verneform[e.verneform];
