@@ -89,6 +89,8 @@ function flett(mdir, wiki) {
   delete e.OBJECTID;
   delete e.iucn;
   delete e.cddaId;
+  moveKey(e, "SHAPE.STArea()", "geografi.areal");
+  e.geografi.areal = Math.round(e.geografi.areal);
   delete e["SHAPE.STLength()"];
 
   e.tittel = {
@@ -133,7 +135,7 @@ function flett(mdir, wiki) {
   e.geografi = e.geografi || {};
   e.geografi.kommune = geovv.kommuner;
   e.geografi.fylke = geovv.fylker;
-  e.geografi.areal = geovv.areal;
+  //  e.geografi.areal = geovv.areal;
   e.mediakilde = e.mediakilde || {};
   e.mediakilde.kart = "thumbnail.png";
   return e;
