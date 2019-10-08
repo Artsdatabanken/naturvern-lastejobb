@@ -12,11 +12,11 @@ io.skrivBuildfil("kommune.json", r);
 
 function lagKoder(r, kilde, nivå) {
   kilde.forEach(o => {
-    if (!o.navn.nob) throw new Error("Mangler navn.");
+    if (!o.tittel.nob) throw new Error("Mangler navn.");
     const key = "VV-" + o.kode;
     const e = {
       kode: key,
-      tittel: { nob: "Naturvernområde i " + o.navn.nob + " " + nivå }
+      tittel: { nob: "Naturvernområde i " + o.tittel.nob + " " + nivå }
     };
     r.push(e);
   });

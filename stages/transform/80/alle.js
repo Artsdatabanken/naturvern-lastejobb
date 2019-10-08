@@ -13,11 +13,15 @@ const alleKommuner = json.arrayToObject(alleKommunerArray, {
 
 const tre = {};
 include("data/relasjon.json");
-
 unngåDuplikatTittel();
-let verneformArray = io.readJson("data/naturvern-ubehandlet/verneform.json")
-  .items;
-verneformArray.forEach(vf => (tre[vf.kode] = vf));
+
+include("data/naturvern-ubehandlet/iucn.json");
+include("data/naturvern-ubehandlet/verneform.json");
+include("data/naturvern-ubehandlet/verneplan.json");
+include("data/naturvern-ubehandlet/forvaltningsmyndighet.json");
+include("data/naturvern-ubehandlet/truetvurdering.json");
+include("data/kommune.json");
+
 include("data/naturvern-ubehandlet/type.json");
 
 Object.keys(tre).forEach(key => {
@@ -35,6 +39,7 @@ io.skrivDatafil(__filename, tre);
 
 function include(fn) {
   let rot = io.readJson(fn);
+  if (rot.items) rot = json.arrayToObject(rot.items, { uniqueKey: "kode" });
   Object.keys(rot).forEach(
     kode => (tre[kode] = json.mergeDeep({}, rot[kode], tre[kode] || {}))
   );
@@ -67,8 +72,8 @@ function uniktNavn(e) {
   const fylke = alleFylker["AO-TO-FL-" + fylkekode];
   nøkkel += ":" + fylkekode;
   if (antallMedSammeTittelIFylke[nøkkel] <= 1)
-    return e.tittel.nob + " (" + fylke.navn.nob + ")";
+    return e.tittel.nob + " (" + fylke.tittel.nob + ")";
   const kommunekode = e.geografi.kommune[0].substring(2);
   const kommune = alleKommuner["AO-TO-FL-" + fylkekode + "-" + kommunekode];
-  return e.tittel.nob + " (" + kommune.navn.nob + ")";
+  return e.tittel.nob + " (" + kommune.tittel.nob + ")";
 }

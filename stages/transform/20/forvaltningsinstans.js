@@ -10,7 +10,7 @@ function lagFylkesmann(kilde) {
   const r = [];
   kilde.forEach(o => {
     const e = {
-      tittel: { nob: "Fylkesmannen i " + o.navn.nob },
+      tittel: { nob: "Fylkesmannen i " + o.tittel.nob },
       kode: "VV-FM-" + o.kode.replace("AO", "FM")
     };
     r.push(e);
