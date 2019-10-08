@@ -17,12 +17,13 @@ include("data/relasjon.json");
 unngåDuplikatTittel();
 let verneformArray = io.readJson("data/naturvern-ubehandlet/verneform.json")
   .items;
-const verneform = json.arrayToObject(verneformArray, {
-  uniqueKey: "kode"
-});
-Object.keys(verneform).forEach(key => {
-  const e = verneform[key];
-  e.foreldre = [
+verneformArray.forEach(vf => (tre[vf.kode] = vf));
+include("data/naturvern-ubehandlet/type.json");
+
+Object.keys(tre).forEach(key => {
+  const e = tre[key];
+  delete e.kode;
+  e.foreldre = e.foreldre || [
     key
       .split("-")
       .slice(0, -1)
@@ -30,8 +31,7 @@ Object.keys(verneform).forEach(key => {
   ];
   tre[key] = e;
 });
-
-include("data/naturvern-ubehandlet/type.json");
+io.skrivDatafil(__filename, tre);
 
 function include(fn) {
   let rot = io.readJson(fn);
@@ -72,5 +72,3 @@ function uniktNavn(e) {
   const kommune = alleKommuner["AO-TO-FL-" + fylkekode + "-" + kommunekode];
   return e.tittel.nob + " (" + kommune.navn.nob + ")";
 }
-
-io.skrivDatafil(__filename, tre);
