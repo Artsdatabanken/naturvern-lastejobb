@@ -22,7 +22,12 @@ const verneform = json.arrayToObject(verneformArray, {
 });
 Object.keys(verneform).forEach(key => {
   const e = verneform[key];
-  e.foreldre = ["VV"];
+  e.foreldre = [
+    key
+      .split("-")
+      .slice(0, -1)
+      .join("-")
+  ];
   tre[key] = e;
 });
 
