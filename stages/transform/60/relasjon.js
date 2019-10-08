@@ -1,5 +1,10 @@
 const { io, json, log } = require("lastejobb");
 
+const økosystemer = {
+  Marin: "ES-MA",
+  Terrestrisk: "ES-TE"
+};
+
 let vo = io.readJson("./data/naturvernområde.json");
 
 const år = {};
@@ -59,10 +64,10 @@ function map(vo) {
 
   if (vo.verneplan) relasjon(e, "Verneplan", vo.verneplan.kode);
   relasjon(e, "forvaltes av", vo.forvaltning.ansvarlig.kode, "forvalter");
-  if (vo.vurdering.truet.kode) {
+  if (vo.vurdering.truet.kode)
     relasjon(e, "Truet vurdering", vo.vurdering.truet.kode);
-  }
 
+  økosystemtype(e);
   if (vo.vurdering.iucn) relasjon(e, "IUCN", vo.vurdering.iucn.kode);
   if (vo.revisjon.dato.førstvernet)
     relasjon(
@@ -81,4 +86,15 @@ function map(vo) {
   }
   kobleForvaltningsmyndighet(e);
   return e;
+}
+
+function økosystemtype(e) {
+  if (!e.majorEcosystemType) return;
+  const eco = e.majorEcosystemType.split("Og");
+  delete e.majorEcosystemType;
+  eco.forEach(ec => {
+    const kode = økosystemer[ec];
+    if (!kode) throw new Error("Ukjent økosystem " + ec);
+    relasjon(e, "Økosystem", kode);
+  });
 }
