@@ -20,7 +20,6 @@ include("data/naturvern-ubehandlet/verneform.json");
 include("data/naturvern-ubehandlet/verneplan.json");
 include("data/naturvern-ubehandlet/forvaltningsmyndighet.json");
 include("data/naturvern-ubehandlet/truetvurdering.json");
-include("data/kommune.json");
 
 include("data/naturvern-ubehandlet/type.json");
 
