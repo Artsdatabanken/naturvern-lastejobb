@@ -22,6 +22,7 @@ include("data/naturvern-ubehandlet/forvaltningsmyndighet.json");
 include("data/naturvern-ubehandlet/truetvurdering.json");
 include("data/naturvern-ubehandlet/vernettidspunkt.json");
 include("data/naturvern_i_kommune.json");
+include("data/forvaltningsinstans.json");
 
 include("data/naturvern-ubehandlet/type.json");
 

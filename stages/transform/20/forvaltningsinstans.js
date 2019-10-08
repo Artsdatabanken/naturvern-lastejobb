@@ -4,14 +4,14 @@ const { io } = require("lastejobb");
 
 let fylker = io.lesDatafil("fylke.json").items;
 const r = lagFylkesmann(fylker);
-io.skrivBuildfil("forvaltningsinstans.json", r);
+io.skrivDatafil("forvaltningsinstans.json", r);
 
 function lagFylkesmann(kilde) {
   const r = [];
   kilde.forEach(o => {
     const e = {
-      tittel: { nob: "Fylkesmannen i " + o.tittel.nob },
-      kode: "VV-FM-" + o.kode.replace("AO", "FM")
+      tittel: { nob: "Fylkesmannen i " + o.tittel.nob, url: o.tittel.nob },
+      kode: "VV-FM-" + o.kode.replace("AO-TO-FL", "FM")
     };
     r.push(e);
   });
