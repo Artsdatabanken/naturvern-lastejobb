@@ -94,7 +94,6 @@ function flett(mdir, wiki) {
   e.tittel = {
     nob: e.navn
   };
-  delete e.offisieltnavn;
   delete e.navn;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
   moveKey(e, "naturvernId", "kodeautor");
