@@ -9,7 +9,7 @@ const tre = [];
 lagKoder(tre, fylker, "fylke");
 lagKoder(tre, kommuner, "kommune");
 tre.push({
-  kode: "VV-AO-TO-FL",
+  kode: "VV-AO",
   tittel: { nob: "Fastlands-Norge" },
   url: "Naturvernområde/Administrativ_grense/Territorialområde/Fastlands-Norge"
 });
@@ -18,7 +18,7 @@ io.skrivDatafil("naturvern_i_kommune.json", tre);
 function lagKoder(r, kilde, nivå) {
   kilde.forEach(o => {
     if (!o.tittel.nob) throw new Error("Mangler navn.");
-    const key = "VV-" + o.kode;
+    const key = "VV-" + o.kode.replace("-TO-FL", "");
     const e = {
       kode: key,
       tittel: { nob: "Naturvernområde i " + o.tittel.nob + " " + nivå }

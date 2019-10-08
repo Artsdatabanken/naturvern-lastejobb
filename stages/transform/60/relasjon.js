@@ -45,6 +45,7 @@ function kobleForvaltningsmyndighet(e) {
   const regexFylke = /VV-AO-(\d\d)/g;
   let fylke = [];
   e.relasjon.forEach(r => {
+    if (r.kode.indexOf("AO") >= 0) debugger;
     const match = regexFylke.exec(r.kode);
     if (match) fylke.push(match[1]);
   });
