@@ -5,10 +5,15 @@ const { io } = require("lastejobb");
 let fylker = io.lesDatafil("fylke.json").items;
 let kommuner = io.lesDatafil("kommune.json").items;
 
-const r = [];
-lagKoder(r, fylker, "fylke");
-lagKoder(r, kommuner, "kommune");
-io.skrivBuildfil("kommune.json", r);
+const tre = [];
+lagKoder(tre, fylker, "fylke");
+lagKoder(tre, kommuner, "kommune");
+tre.push({
+  kode: "VV-AO-TO-FL",
+  tittel: { nob: "Fastlands-Norge" },
+  url: "Naturvernområde/Administrativ_grense/Territorialområde/Fastlands-Norge"
+});
+io.skrivDatafil("naturvern_i_kommune.json", tre);
 
 function lagKoder(r, kilde, nivå) {
   kilde.forEach(o => {
