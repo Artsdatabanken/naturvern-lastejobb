@@ -11,7 +11,7 @@ lagKoder(tre, kommuner, "kommune");
 tre.push({
   kode: "VV-AO",
   tittel: { nob: "Fastlands-Norge" },
-  url: "Naturvernområde/Fastlands-Norge"
+  url: "/Naturvernområde/Fastlands-Norge"
 });
 io.skrivDatafil("naturvern_i_kommune.json", tre);
 
