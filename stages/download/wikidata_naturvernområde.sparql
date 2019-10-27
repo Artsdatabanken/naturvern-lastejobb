@@ -1,5 +1,6 @@
 SELECT * WHERE {
   ?item p:P31/ps:P31/wdt:P279* wd:Q473972.
+  OPTIONAL { ?item wdt:P809 ?wdpaid. }
   OPTIONAL { ?item wdt:P2044 ?elevation. }
   OPTIONAL { ?item wdt:P856 ?url. }
   OPTIONAL { ?item wdt:P18 ?foto. }

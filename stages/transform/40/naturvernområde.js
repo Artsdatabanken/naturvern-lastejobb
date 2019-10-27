@@ -82,6 +82,7 @@ function flett(mdir, wiki) {
   };
   delete e.navn;
   e.verneforskrift = fixBrokenUrlLovdata(e.verneforskrift);
+
   moveKey(e, "naturvernId", "kodeautor");
   moveKey(e, "url", "lenke.offisiell");
   moveKey(e, "foto", "mediakilde.foto");
@@ -110,6 +111,11 @@ function flett(mdir, wiki) {
   moveKey(e, "coords", "geografi.punkt");
   if (e.elevation) e.elevation = parseFloat(e.elevation);
   moveKey(e, "elevation", "geografi.elevasjon");
+
+  if (e.wdpaid) {
+    e.lenke.wdpa = "https://www.protectedplanet.net/" + e.wdpaid;
+    delete e.wdpaid;
+  }
 
   if (e.vernedato) e.revisjon.dato.vernet = new Date(e.vernedato);
   delete e.vernedato;
