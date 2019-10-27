@@ -73,7 +73,8 @@ function flett(mdir, wiki) {
   delete e.iucn;
   delete e.cddaId;
   moveKey(e, "SHAPE.STArea()", "geografi.areal");
-  e.geografi.areal = Math.round(e.geografi.areal);
+  e.geografi = { areal: Math.round(e["SHAPE.STArea()"]) };
+  delete e["SHAPE.STArea()"];
   delete e["SHAPE.STLength()"];
 
   e.tittel = {
