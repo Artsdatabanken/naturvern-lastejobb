@@ -5,7 +5,7 @@ const økosystemer = {
   Terrestrisk: "ES-TE"
 };
 
-let vo = io.readJson("./data/naturvernområde.json");
+let vo = io.readJson("./temp/naturvernområde.json");
 
 const år = {};
 vo.items.forEach(o => {

@@ -12,19 +12,19 @@ const alleKommuner = json.arrayToObject(alleKommunerArray, {
 });
 
 const tre = {};
-include("data/relasjon.json");
+include("temp/relasjon.json");
 unngåDuplikatTittel();
 
-include("data/naturvern-ubehandlet/iucn.json");
-include("data/naturvern-ubehandlet/verneform.json");
-include("data/naturvern-ubehandlet/verneplan.json");
-include("data/naturvern-ubehandlet/forvaltningsmyndighet.json");
-include("data/naturvern-ubehandlet/truetvurdering.json");
-include("data/naturvern-ubehandlet/vernettidspunkt.json");
-include("data/naturvern_i_kommune.json");
-include("data/forvaltningsinstans.json");
+include("temp/naturvern-ubehandlet/iucn.json");
+include("temp/naturvern-ubehandlet/verneform.json");
+include("temp/naturvern-ubehandlet/verneplan.json");
+include("temp/naturvern-ubehandlet/forvaltningsmyndighet.json");
+include("temp/naturvern-ubehandlet/truetvurdering.json");
+include("temp/naturvern-ubehandlet/vernettidspunkt.json");
+include("temp/naturvern_i_kommune.json");
+include("temp/forvaltningsinstans.json");
 
-include("data/naturvern-ubehandlet/type.json");
+include("temp/naturvern-ubehandlet/type.json");
 
 Object.keys(tre).forEach(key => {
   const e = tre[key];
