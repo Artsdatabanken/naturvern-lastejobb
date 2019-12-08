@@ -9,7 +9,7 @@ Laster [åpne data om Norske naturvernområder](https://github.com/Artsdatabanke
 
 ### Dataflyt
 
-[![Dataflyt](./doc/dataflyt.png)](https://artsdatabanken.github.io/naturvern-lastejobb/)
+[![Dataflyt](https://github.com/Artsdatabanken/naturvern-lastejobb/raw/master/doc/dataflyt.png)](https://artsdatabanken.github.io/naturvern-lastejobb/)
 
 ### Tegnforklaring
 
