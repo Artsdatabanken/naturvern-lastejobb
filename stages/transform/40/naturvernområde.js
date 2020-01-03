@@ -22,7 +22,7 @@ function lesEnum(fn) {
   return r;
 }
 
-const geonorge = io.lesDatafil("geonorge_naturvernområde.geojson");
+const geonorge = io.lesJsonLines("geonorge_naturvernområde.geojsonl");
 const wiki = lesWikidata("wikidata_naturvernområde");
 const geo = json.arrayToObject(
   io.lesDatafil("naturvernområde_kart.json").items,
@@ -30,7 +30,7 @@ const geo = json.arrayToObject(
 );
 
 const r = [];
-geonorge.features.forEach(feature => {
+geonorge.forEach(feature => {
   const props = feature.properties;
   const key = props["naturvernId"];
   r.push(flett(props, wiki[key]));
