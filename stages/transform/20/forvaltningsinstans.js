@@ -2,7 +2,7 @@ const { io } = require("lastejobb");
 
 // Kategorier for forvaltningsinstanser i de forskjellige fylker
 
-let fylker = io.lesDatafil("fylke.json").items;
+let fylker = io.lesTempJson("fylke.json");
 const r = lagFylkesmann(fylker);
 io.skrivDatafil("forvaltningsinstans.json", r);
 

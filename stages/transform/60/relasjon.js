@@ -18,7 +18,8 @@ vo.items.forEach(o => {
 
 const r = vo.items.map(vv => map(vv));
 
-io.skrivDatafil(__filename, json.arrayToObject(r, { uniqueKey: "kode" }));
+//io.skrivDatafil(__filename, json.arrayToObject(r, { uniqueKey: "kode" }));
+io.skrivDatafil(__filename, r);
 
 function relasjon(e, kant, kode, kantRetur, erSubset = true) {
   for (const rl of e.relasjon) if (rl.kode === kode) return;

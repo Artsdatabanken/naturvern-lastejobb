@@ -3,10 +3,10 @@ const { io, json } = require("lastejobb");
 const antallMedSammeTittel = {};
 const antallMedSammeTittelIFylke = {};
 
-const alleFylkerArray = io.lesDatafil("fylke").items;
+const alleFylkerArray = io.lesTempJson("fylke");
 const alleFylker = json.arrayToObject(alleFylkerArray, { uniqueKey: "kode" });
 
-const alleKommunerArray = io.lesDatafil("kommune").items;
+const alleKommunerArray = io.lesTempJson("kommune");
 const alleKommuner = json.arrayToObject(alleKommunerArray, {
   uniqueKey: "kode"
 });
@@ -40,8 +40,9 @@ Object.keys(tre).forEach(key => {
 io.skrivDatafil(__filename, tre);
 
 function include(fn) {
-  let rot = io.readJson(fn);
+  let rot = io.readJson(fn)
   if (rot.items) rot = json.arrayToObject(rot.items, { uniqueKey: "kode" });
+
   Object.keys(rot).forEach(
     kode => (tre[kode] = json.mergeDeep({}, rot[kode], tre[kode] || {}))
   );

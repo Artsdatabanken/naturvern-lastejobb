@@ -1,7 +1,7 @@
 {
   "author": "Bjorn Reppen <bjreppen@gmail.com> (https://github.com/bjornreppen)",
   "dependencies": {
-    "lastejobb": "^2.22.0"
+    "lastejobb": "^3.5.3"
   },
   "description": "",
   "homepage": "https://github.com/Artsdatabanken/naturvern-lastejobb",
@@ -10,11 +10,11 @@
   "main": "index.js",
   "name": "naturvern-lastejobb",
   "scripts": {
-    "download": "node index download",
-    "transform": "node --max_old_space_size=8192 index transform",
+    "download": "node node_modules/lastejobb/lastejobb stages/download",
+    "transform": "node --max_old_space_size=8192 node_modules/lastejobb/lastejobb stages/transform",
     "build": "npm run download && npm run transform",
     "test": "node --max_old_space_size=6144 node_modules/.bin/jest",
-    "deploy": "node --nolazy --inspect-brk=9229 index deploy"
+    "deploy": "node --nolazy --inspect-brk=9229 node_modules/lastejobb/lastejobb stages/deploy"
   },
   "version": "1.0.0"
 }

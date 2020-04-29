@@ -1,7 +1,7 @@
 const { io, json, log } = require("lastejobb");
 const moveKey = json.moveKey;
 
-const lesSparqlOutput = fil => io.lesDatafil(fil).results.bindings;
+const lesSparqlOutput = fil => io.lesTempJson(fil).results.bindings;
 const coordWktToArray = coord => {
   const ll = coord.match(/\((?<lon>.*) (?<lat>.*)\)/).groups;
   return { lengde: parseFloat(ll.lon), bredde: parseFloat(ll.lat) };
@@ -16,7 +16,7 @@ const truetvurdering = lesEnum("naturvern-ubehandlet/truetvurdering");
 const iucn = lesEnum("naturvern-ubehandlet/iucn");
 
 function lesEnum(fn) {
-  const src = io.lesDatafil(fn).items;
+  const src = io.lesTempJson(fn);
   const r = {};
   src.forEach(e => (r[e.kodeautor] = e));
   return r;
@@ -25,7 +25,7 @@ function lesEnum(fn) {
 const geonorge = io.lesJsonLines("geonorge_naturvernområde.geojsonl");
 const wiki = lesWikidata("wikidata_naturvernområde");
 const geo = json.arrayToObject(
-  io.lesDatafil("naturvernområde_kart.json").items,
+  io.lesTempJson("naturvernområde_kart.json"),
   { uniqueKey: "id" }
 );
 
@@ -33,7 +33,9 @@ const r = [];
 geonorge.forEach(feature => {
   const props = feature.properties;
   const key = props["naturvernId"];
-  r.push(flett(props, wiki[key]));
+  const e = flett(props, wiki[key])
+  if (e)
+    r.push(e);
 });
 
 r.sort((a, b) => (a.kodeautor > b.kodeautor ? 1 : -1));
@@ -122,14 +124,18 @@ function flett(mdir, wiki) {
     e.revisjon.dato.førstvernet = new Date(e.foerstegangVernet);
   delete e.foerstegangVernet;
 
-  const geovv = geo[e.kodeautor];
-  if (!geovv) throw new Error("Mangler geografi for " + e.kodeautor);
+  e.mediakilde = e.mediakilde || {};
+  e.mediakilde.kart = "thumbnail.png";
+
   e.geografi = e.geografi || {};
+  const geovv = geo[e.kodeautor];
+  if (!geovv) {
+    log.error("Mangler geografi for " + e.kodeautor);
+    return null
+  }
   e.geografi.kommune = geovv.kommuner;
   e.geografi.fylke = geovv.fylker;
   //  e.geografi.areal = geovv.areal;
-  e.mediakilde = e.mediakilde || {};
-  e.mediakilde.kart = "thumbnail.png";
   return e;
 }
 

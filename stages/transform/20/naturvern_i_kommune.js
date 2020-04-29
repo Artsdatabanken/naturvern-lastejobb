@@ -2,8 +2,8 @@ const { io } = require("lastejobb");
 
 // Kategorier for kommuner og fylker som naturvernområdet befinner seg geografisk i
 
-let fylker = io.lesDatafil("fylke.json").items;
-let kommuner = io.lesDatafil("kommune.json").items;
+let fylker = io.lesTempJson("fylke.json");
+let kommuner = io.lesTempJson("kommune.json");
 
 const tre = [];
 lagKoder(tre, fylker, "fylke");

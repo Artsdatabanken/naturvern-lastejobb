@@ -1,6 +1,6 @@
 const { io, url } = require("lastejobb");
 
-const tre = io.lesDatafil("alle");
+const tre = io.lesTempJson("alle");
 new url(tre).assignUrls();
 Object.values(tre).forEach(e => {
   if (e.offisieltNavn) {
