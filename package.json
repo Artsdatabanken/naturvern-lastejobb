@@ -1,7 +1,7 @@
 {
   "author": "Bjorn Reppen <bjreppen@gmail.com> (https://github.com/bjornreppen)",
   "dependencies": {
-    "lastejobb": "^3.7.1"
+    "lastejobb": "^3.7.2"
   },
   "description": "",
   "homepage": "https://github.com/Artsdatabanken/naturvern-lastejobb",
