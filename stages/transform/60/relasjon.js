@@ -1,4 +1,4 @@
-const { io, json, log } = require("lastejobb");
+const { io, json, log } = require("@artsdatabanken/lastejobb");
 
 const økosystemer = {
   Marin: "ES-AK-MA",

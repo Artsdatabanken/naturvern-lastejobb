@@ -1,4 +1,4 @@
-const { http, log } = require("lastejobb");
+const { http, log } = require("@artsdatabanken/lastejobb");
 const path = require("path");
 
 // Laster ned verneområder fra naturvern-kart-lastejobb

@@ -1,4 +1,4 @@
-const { io } = require("lastejobb");
+const { io } = require("@artsdatabanken/lastejobb");
 
 // Kategorier for kommuner og fylker som naturvernområdet befinner seg geografisk i
 
