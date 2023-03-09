@@ -42,6 +42,7 @@ function fjernRelasjon(e, kode) {
 }
 
 function kobleForvaltningsmyndighet(e) {
+  try {
   if (e.forvaltning.ansvarlig.kode !== "VV-FM-FM") return;
   const regexFylke = /VV-AO-(\d\d)/g;
   let fylke = [];
@@ -52,6 +53,9 @@ function kobleForvaltningsmyndighet(e) {
   if (fylke.length !== 1) return;
   relasjon(e, "forvaltes av", "VV-FM-FM-" + fylke[0], "forvalter");
   fjernRelasjon(e, "VV-FM-FM");
+} catch (e) {
+ console.log(e);
+}
 }
 
 function map(vo) {
@@ -64,7 +68,11 @@ function map(vo) {
   };
 
   if (vo.verneplan) relasjon(e, "Verneplan", vo.verneplan.kode);
+  try {
   relasjon(e, "forvaltes av", vo.forvaltning.ansvarlig.kode, "forvalter");
+  } catch(rr) {
+    console.log(vo);
+  }
   if (vo.vurdering.truet.kode)
     relasjon(e, "Truet vurdering", vo.vurdering.truet.kode);
 
