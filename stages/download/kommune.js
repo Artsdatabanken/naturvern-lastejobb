@@ -1,8 +1,8 @@
-const { http, log } = require("lastejobb");
+const { http, log } = require("@artsdatabanken/lastejobb");
 
 http
   .downloadBinary(
-    "https://raw.githubusercontent.com/Artsdatabanken/kommune/master/kommune.json",
+    "https://raw.githubusercontent.com/Artsdatabanken/kommune/master/build/kommune.json",
     "kommune.json"
   )
   .catch(err => {

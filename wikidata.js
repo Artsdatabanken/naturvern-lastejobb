@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { http } = require("lastejobb");
+const { http } = require("@artsdatabanken/lastejobb");
 
 // Query-verktøy på https://query.wikidata.org/
 

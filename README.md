@@ -169,3 +169,6 @@ Slå på logging ved å sette environment variabel
 Funksjoner for logging fra lastejobben
 
 Se https://github.com/bjornreppen/log-less-fancy#readme
+
+
+## Bumped 10.03.23 - 10.00

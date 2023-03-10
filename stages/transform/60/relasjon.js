@@ -1,4 +1,4 @@
-const { io, json, log } = require("lastejobb");
+const { io, json, log } = require("@artsdatabanken/lastejobb");
 
 const økosystemer = {
   Marin: "ES-AK-MA",
@@ -51,7 +51,7 @@ function kobleForvaltningsmyndighet(e) {
   });
   if (fylke.length !== 1) return;
   relasjon(e, "forvaltes av", "VV-FM-FM-" + fylke[0], "forvalter");
-  fjernRelasjon(e, "VV-FM-FM");
+  fjernRelasjon(e, "VV-FM-FM"); 
 }
 
 function map(vo) {

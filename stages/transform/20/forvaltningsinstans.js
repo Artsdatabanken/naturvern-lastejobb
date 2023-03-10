@@ -1,4 +1,4 @@
-const { io } = require("lastejobb");
+const { io } = require("@artsdatabanken/lastejobb");
 
 // Kategorier for forvaltningsinstanser i de forskjellige fylker
 

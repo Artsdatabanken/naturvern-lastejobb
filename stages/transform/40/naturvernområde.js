@@ -1,4 +1,4 @@
-const { io, json, log } = require("lastejobb");
+const { io, json, log } = require("@artsdatabanken/lastejobb");
 const moveKey = json.moveKey;
 
 const lesSparqlOutput = fil => io.lesTempJson(fil).results.bindings;
