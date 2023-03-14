@@ -1,1 +1,1 @@
-cp build/* destinationRepo/
+cp -r build/* destinationRepo/
